@@ -1,7 +1,7 @@
 import openapiTS from "openapi-typescript";
 import env from "dotenv";
 import { writeNodesToFile } from "./utils/writeNodesToFile.ts";
-import { extractSchemasAsInterfaces } from "./utils/extractSchemasAsInterfaces.ts";
+import { extractSchemasAsInterfaces } from "./core/extractSchemasAsInterfaces.ts";
 env.config();
 
 
