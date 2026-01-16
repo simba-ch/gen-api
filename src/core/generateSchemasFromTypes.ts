@@ -3,10 +3,12 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const processPath = fileURLToPath(process.argv[1]);
-console.log("🚀 ~ processPath:", processPath)
+// 当前文件路径
+const __filename = fileURLToPath(import.meta.url);
+// 当前文件目录
+const __dirname = path.dirname(__filename);
 // types 文件路径
-const TYPES_FILE = "../../openapi-ts/types.ts";
+const TYPES_FILE = path.resolve(__dirname, "../../openapi-ts/types.ts");
 
 // ------------------- 工具函数 -------------------
 
@@ -61,11 +63,9 @@ function extractSchemaNameFromIndexedAccessRecursive(
 // ------------------- 主函数 -------------------
 
 export async function generateSchemasFromTypes(
-  outputFile: string,
-  typesFilePath: string = TYPES_FILE
+  output: string,
+  typesFile: string = TYPES_FILE
 ) {
-  const typesFile = path.resolve(processPath, typesFilePath);
-  const output = path.resolve(processPath, outputFile);
   const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
 
   // 1️⃣ 解析 types.ts 文件
