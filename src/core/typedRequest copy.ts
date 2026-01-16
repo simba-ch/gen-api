@@ -2,35 +2,20 @@
 import type { paths } from "../../openapi-ts/types.ts";
 
 /* ---------------------------------- */
-/* 0️⃣ 工具类型 */
-/* ---------------------------------- */
-
-type IsNever<T> = [T] extends [never] ? true : false;
-
-/**
- * 过滤掉：
- * - parameters
- * - 值为 never 的 method（get?: never）
- */
-type ValidMethods<P extends keyof paths> = {
-  [M in keyof paths[P]]: M extends "parameters"
-    ? never
-    : IsNever<paths[P][M]> extends true
-      ? never
-      : M;
-}[keyof paths[P]];
-
-/* ---------------------------------- */
 /* 1️⃣ 核心基础类型 */
 /* ---------------------------------- */
 
-/**
- * 所有 path 上真实存在的 Http Method
- */
-export type HttpMethod = {
-  [P in keyof paths]: ValidMethods<P>;
-}[keyof paths];
+type HttpMethod = Exclude<keyof paths[keyof paths], "parameters">;
+//   | "get"
+//   | "post"
+//   | "put"
+//   | "patch"
+//   | "delete"
+//   | "options"
+//   | "head"
+//   | "trace";
 
+// Typed Request 层不关心序列化细节
 export interface HttpRequest {
   url: string;
   method: HttpMethod | string;
@@ -45,7 +30,7 @@ export interface HttpAdapter {
 }
 
 /* ---------------------------------- */
-/* 2️⃣ Response 类型推导 */
+/* 2️⃣ Response 类型推导（扁平化 union + data） */
 /* ---------------------------------- */
 
 export type ExtractJson<T> = T extends {
@@ -57,14 +42,15 @@ export type ExtractJson<T> = T extends {
 export type ResponseUnionFromResponses<R> = {
   [S in keyof R]: S extends number
     ? R[S] extends { content: any }
-      ? { status: S; data: ExtractJson<R[S]> }
-      : { status: S; data: never }
+      ? { status: S; data: ExtractJson<R[S]> } // 有 content
+      : { status: S; data: never } // 无 content
     : never;
 }[keyof R];
 
+// Path + Method → ResponseUnion（最终返回类型）
 export type ResponseUnion<
   P extends keyof paths,
-  M extends ValidMethods<P>,
+  M extends keyof paths[P],
 > = paths[P][M] extends { responses: infer R }
   ? ResponseUnionFromResponses<R>
   : never;
@@ -77,7 +63,7 @@ type ExtractParams<T> = T extends { parameters: infer P } ? P : {};
 
 export type RequestArgs<
   P extends keyof paths,
-  M extends ValidMethods<P>,
+  M extends keyof paths[P],
 > = Partial<{
   path: ExtractParams<paths[P][M]> extends { path: infer Path } ? Path : never;
   query: ExtractParams<paths[P][M]> extends { query: infer Query }
@@ -101,7 +87,7 @@ export type RequestArgs<
 export function createRequester(adapter: HttpAdapter) {
   return async function request<
     P extends keyof paths,
-    M extends ValidMethods<P>,
+    M extends keyof paths[P],
   >(
     path: P,
     method: M,
@@ -127,6 +113,7 @@ export function createRequester(adapter: HttpAdapter) {
       body: args?.body,
     };
 
+    // 假设 Adapter 返回 {status, data} 形式，直接 cast 为 ResponseUnion
     const res = await adapter.request(httpReq);
     return res as ResponseUnion<P, M>;
   };
