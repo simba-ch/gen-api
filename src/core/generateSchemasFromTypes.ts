@@ -1,32 +1,32 @@
-// 从内存中提取 components.schemas 并生成 export interface 写入文件
 import ts from "typescript";
 import fs from "fs/promises";
 import path from "path";
+import { fileURLToPath } from "url";
 
-/** 将原始 schema 名称转换成合法 TS interface 名称 */
+const processPath = fileURLToPath(process.argv[1]);
+console.log("🚀 ~ processPath:", processPath)
+// types 文件路径
+const TYPES_FILE = "../../openapi-ts/types.ts";
+
+// ------------------- 工具函数 -------------------
+
+// 将原始 schema 名称转换成合法 TS interface 名称
 function toSafeInterfaceName(name: string) {
   let safe = name.replace(/\?$/, "Optional").replace(/[^\w$]/g, "_");
-
   if (/^\d/.test(safe)) safe = `Safe_Schema_${safe}`;
-
   return safe;
 }
 
-/** 获取 schema 成员原始名称（支持 Identifier 或 StringLiteral） */
+// 获取 schema 成员原始名称（支持 Identifier、StringLiteral、NumericLiteral）
 function getSchemaName(member: ts.TypeElement): string | null {
   if (!ts.isPropertySignature(member)) return null;
-
   if (ts.isIdentifier(member.name)) return member.name.text;
   if (ts.isStringLiteral(member.name)) return member.name.text;
-  if (ts.isNumericLiteral(member.name)) return member.name.text; // ✅ 支持数字
-
+  if (ts.isNumericLiteral(member.name)) return member.name.text;
   return null;
 }
 
-/**
- * 提取多级 IndexedAccess 最终 schema 名称，例如：
- * components["schemas"]["Page?"]["records"] -> Page?
- */
+// 提取多级 IndexedAccess 最终 schema 名称，例如 components["schemas"]["Page?"]["records"] -> Page?
 function extractSchemaNameFromIndexedAccessRecursive(
   node: ts.TypeNode
 ): string | null {
@@ -58,23 +58,35 @@ function extractSchemaNameFromIndexedAccessRecursive(
   return null;
 }
 
-/**
- * 从 ts.Node[] 中提取 components.schemas 并生成 export interface 写入文件
- */
-export async function extractSchemasAsInterfaces(
-  nodes: ts.Node[],
-  outFile: string
+// ------------------- 主函数 -------------------
+
+export async function generateSchemasFromTypes(
+  outputFile: string,
+  typesFilePath: string = TYPES_FILE
 ) {
+  const typesFile = path.resolve(processPath, typesFilePath);
+  const output = path.resolve(processPath, outputFile);
   const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
 
-  // 1️⃣ 找到 export interface components
-  const componentsNode = nodes.find(
+  // 1️⃣ 解析 types.ts 文件
+  const program = ts.createProgram([typesFile], {
+    target: ts.ScriptTarget.Latest,
+    module: ts.ModuleKind.ESNext,
+  });
+
+  const sourceFile = program.getSourceFile(typesFile);
+  if (!sourceFile) throw new Error(`❌ 找不到 ${typesFile} 文件`);
+
+  const checker = program.getTypeChecker();
+
+  // 2️⃣ 找到 export interface components
+  const componentsNode = sourceFile.statements.find(
     (node) => ts.isInterfaceDeclaration(node) && node.name.text === "components"
   ) as ts.InterfaceDeclaration | undefined;
 
   if (!componentsNode) throw new Error("❌ 找不到 components interface");
 
-  // 2️⃣ 找到 schemas 属性
+  // 3️⃣ 找到 schemas 属性
   const schemasProp = componentsNode.members.find(
     (member) =>
       ts.isPropertySignature(member) &&
@@ -86,12 +98,13 @@ export async function extractSchemasAsInterfaces(
     !schemasProp ||
     !schemasProp.type ||
     !ts.isTypeLiteralNode(schemasProp.type)
-  )
+  ) {
     throw new Error("❌ 找不到 schemas 属性或类型不合法");
+  }
 
   const schemasType = schemasProp.type;
 
-  // 3️⃣ schema 名称映射表
+  // schema 名称映射表
   const schemaNameMap = new Map<string, string>();
   schemasType.members.forEach((member) => {
     const origName = getSchemaName(member);
@@ -100,13 +113,14 @@ export async function extractSchemasAsInterfaces(
 
   const allInterfaces: string[] = [];
 
-  // 4️⃣ 递归替换 TypeNode 中的循环引用
+  // 递归替换循环引用
   function replaceType(node: ts.TypeNode): ts.TypeNode {
     if (ts.isTypeReferenceNode(node)) {
       if (ts.isIndexedAccessTypeNode(node.typeName)) {
         const name = extractSchemaNameFromIndexedAccessRecursive(node.typeName);
-        if (name && schemaNameMap.has(name))
+        if (name && schemaNameMap.has(name)) {
           return ts.factory.createTypeReferenceNode(schemaNameMap.get(name)!);
+        }
       }
     } else if (ts.isArrayTypeNode(node)) {
       return ts.factory.updateArrayTypeNode(
@@ -131,19 +145,17 @@ export async function extractSchemasAsInterfaces(
     return node;
   }
 
-  // 5️⃣ 遍历每个 schema，生成 interface
+  // 遍历每个 schema 生成 interface
   schemasType.members.forEach((member) => {
     const origName = getSchemaName(member);
     if (!origName) return;
-
     const safeName = schemaNameMap.get(origName)!;
-
     if (!ts.isPropertySignature(member) || !member.type) return;
 
     let interfaceDecl: ts.InterfaceDeclaration;
 
     if (ts.isTypeLiteralNode(member.type)) {
-      // type literal → 生成完整成员
+      // 对象类型
       const newMembers = member.type.members.map((m) => {
         if (ts.isPropertySignature(m) && m.type) {
           return ts.factory.updatePropertySignature(
@@ -156,7 +168,6 @@ export async function extractSchemasAsInterfaces(
         }
         return m;
       });
-
       interfaceDecl = ts.factory.createInterfaceDeclaration(
         [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
         safeName,
@@ -164,16 +175,14 @@ export async function extractSchemasAsInterfaces(
         undefined,
         newMembers
       );
-
-      // 添加原始 schema 名称注释
       ts.addSyntheticLeadingComment(
         interfaceDecl,
         ts.SyntaxKind.MultiLineCommentTrivia,
-        `* 原始 schema 名称: "${origName}" `,
+        `* 原始 schema 名称: "${origName}"`,
         true
       );
     } else {
-      // 非 type literal → 生成空 interface 并保留原始类型注释
+      // 非对象类型（Record, string, number, etc.） → 空接口
       interfaceDecl = ts.factory.createInterfaceDeclaration(
         [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
         safeName,
@@ -181,7 +190,6 @@ export async function extractSchemasAsInterfaces(
         undefined,
         []
       );
-
       ts.addSyntheticLeadingComment(
         interfaceDecl,
         ts.SyntaxKind.MultiLineCommentTrivia,
@@ -189,7 +197,7 @@ export async function extractSchemasAsInterfaces(
           ts.EmitHint.Unspecified,
           member.type,
           member.getSourceFile()!
-        )} `,
+        )}`,
         true
       );
     }
@@ -204,8 +212,8 @@ export async function extractSchemasAsInterfaces(
     allInterfaces.push(code);
   });
 
-  // 6️⃣ 写入文件
-  await fs.mkdir(path.dirname(outFile), { recursive: true });
-  await fs.writeFile(outFile, allInterfaces.join("\n\n"), "utf-8");
-  console.log(`✅ 已生成接口并写入 ${outFile}`);
+  // 写入文件
+  await fs.mkdir(path.dirname(output), { recursive: true });
+  await fs.writeFile(output, allInterfaces.join("\n\n"), "utf-8");
+  console.log(`✅ 已生成接口并写入 ${output}`);
 }

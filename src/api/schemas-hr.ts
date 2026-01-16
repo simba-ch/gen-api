@@ -1,3 +1,13 @@
+/** 原始 schema 名称: "0" */
+export interface Safe_Schema_0 {
+    /** @description 是否全部权限 */
+    allPermissionFlag?: boolean;
+    /** @description 人ID */
+    userIdList?: number[];
+    /** @description 部门ID */
+    deptIdList?: number[];
+}
+
 /** 原始 schema 名称: "ServiceResult?" */
 export interface ServiceResultOptional {
     /** @description 业务状态码 */
@@ -1333,15 +1343,15 @@ export interface OvertimeCalculateRule {
      */
     beginOvertimeAfterWork: number;
     /**
-     * @description 最小加班时间（单位：分钟）
+     * @description 最短加班时间（单位：分钟）
      * @default 0
      */
     minOvertime: number;
     /**
-     * @description 累进加班时间（单位：分钟）
+     * @description 最长加班时间（单位：分钟，最长不能超过24小时）
      * @default 0
      */
-    progressiveOvertime: number;
+    maxOvertime: number;
 }
 
 /** 原始 schema 名称: "OvertimeAccountingRule" */
@@ -1349,7 +1359,7 @@ export interface OvertimeAccountingRule {
     /** @description 核算方式 (1：计为调休；2：计算加班费；3：员工自选) */
     accountingMethod: number;
     /** @description 调休换算比例 */
-    ratio: number;
+    ratio?: number;
     /** @description 调休假生效方式（1：即时生效；2：下月生效；3：延迟生效） */
     effectiveMethod?: number;
     /** @description 延迟天数 */
@@ -1363,8 +1373,8 @@ export interface OvertimeDuration {
     /** @description 时长单位（1：小时；2：天） */
     timeUnit?: number;
     /**
-     * @description 取整模式（0: 向上取整，1: 向下取整，4: 四舍五入）
-     * @default 1
+     * @description 取整模式（0: 向上取整，3: 向下取整，4: 四舍五入）
+     * @default 4
      * @enum {integer}
      */
     roundingMode: never;
@@ -1374,7 +1384,7 @@ export interface OvertimeDuration {
      */
     scale: number;
     /**
-     * @description 基数（单位：小时，适用于向上/向下取整）
+     * @description 基数（适用于向上/向下取整）
      * @default BigDecimal.valueOf(0.5f)
      */
     cardinal: number;
@@ -1392,9 +1402,7 @@ export interface OvertimeRuleVO {
     name?: string;
     /** @description 加班类型（1：工作日加班；2：休息日加班；3：法定节假日加班） */
     overtimeType?: number;
-    /** @description 是否需要申请流程 */
-    isApprove?: boolean;
-    /** @description 加班有效时间规则 */
+    /** @description 加班有效时间规则（1：按审批时间；2：按打卡时长；3：在审批时间段内按打卡时长计算） */
     effectiveTimeRule?: number;
     /** @description 加班计算规则 */
     calculationRule?: OvertimeCalculateRule;
@@ -1402,8 +1410,12 @@ export interface OvertimeRuleVO {
     accountingRule?: OvertimeAccountingRule;
     /** @description 加班时长规则 */
     durationRule?: OvertimeDuration;
-    /** @description 加班允许的时间段 */
-    allowableTimePeriod?: number;
+    /** @description 上班前是否允许加班 */
+    beforeWorkEnabled?: boolean;
+    /** @description 班次内休息时段是否允许加班 */
+    breakTimeEnabled?: boolean;
+    /** @description 下班后是否允许加班 */
+    afterWorkEnabled?: boolean;
 }
 
 /** 原始 schema 名称: "PageOvertimeRuleVO" */
@@ -2435,15 +2447,15 @@ export interface OvertimeCalculateRuleModify {
      */
     beginOvertimeAfterWork: number;
     /**
-     * @description 最小加班时间（单位：分钟）
+     * @description 最短加班时间（单位：分钟）
      * @default 0
      */
     minOvertime: number;
     /**
-     * @description 累进加班时间（单位：分钟）
+     * @description 最长加班时间（单位：分钟，最长不能超过24小时）
      * @default 0
      */
-    progressiveOvertime: number;
+    maxOvertime: number;
 }
 
 /** 原始 schema 名称: "OvertimeAccountingRuleModify" */
@@ -2465,8 +2477,8 @@ export interface OvertimeDurationModify {
     /** @description 时长单位（1：小时；2：天） */
     timeUnit?: number;
     /**
-     * @description 取整模式（0: 向上取整，1: 向下取整，4: 四舍五入）
-     * @default 1
+     * @description 取整模式（0: 向上取整，3: 向下取整，4: 四舍五入）
+     * @default 4
      * @enum {integer}
      */
     roundingMode: never;
@@ -2476,7 +2488,7 @@ export interface OvertimeDurationModify {
      */
     scale: number;
     /**
-     * @description 基数（单位：小时，适用于向上/向下取整）
+     * @description 基数（适用于向上/向下取整）
      * @default BigDecimal.valueOf(0.5f)
      */
     cardinal: number;
@@ -2497,8 +2509,6 @@ export interface OvertimeRuleSaveROModify {
     name?: string;
     /** @description 加班类型（1：工作日加班；2：休息日加班；3：法定节假日加班） */
     overtimeType?: number;
-    /** @description 是否需要申请流程 */
-    isApprove?: boolean;
     /** @description 加班有效时间规则（1：按审批时间；2：按打卡时长；3：在审批时间段内按打卡时长计算） */
     effectiveTimeRule?: number;
     /** @description 加班计算规则 */
@@ -2507,8 +2517,21 @@ export interface OvertimeRuleSaveROModify {
     accountingRule?: OvertimeAccountingRuleModify;
     /** @description 加班时长规则 */
     durationRule?: OvertimeDurationModify;
-    /** @description 加班允许的时间段 （1：仅允许上班前；2：仅允许下班后；3：全天均可） */
-    allowableTimePeriod?: number;
+    /**
+     * @description 上班前是否允许加班
+     * @default true
+     */
+    beforeWorkEnabled: boolean;
+    /**
+     * @description 班次内休息时段是否允许加班
+     * @default true
+     */
+    breakTimeEnabled: boolean;
+    /**
+     * @description 下班后是否允许加班
+     * @default true
+     */
+    afterWorkEnabled: boolean;
 }
 
 /** 原始 schema 名称: "ServiceResultBoolean" */
@@ -4984,7 +5007,7 @@ export interface key {
 
 /** 原始 schema 名称: "MapObject" */
 export interface MapObject {
-    key?: key;
+    key?: key1;
 }
 
 /** 原始 schema 名称: "ServiceResultMapObject" */
@@ -7081,15 +7104,15 @@ export interface OvertimeCalculateRuleCreate {
      */
     beginOvertimeAfterWork: number;
     /**
-     * @description 最小加班时间（单位：分钟）
+     * @description 最短加班时间（单位：分钟）
      * @default 0
      */
     minOvertime: number;
     /**
-     * @description 累进加班时间（单位：分钟）
+     * @description 最长加班时间（单位：分钟，最长不能超过24小时）
      * @default 0
      */
-    progressiveOvertime: number;
+    maxOvertime: number;
 }
 
 /** 原始 schema 名称: "OvertimeAccountingRuleCreate" */
@@ -7111,8 +7134,8 @@ export interface OvertimeDurationCreate {
     /** @description 时长单位（1：小时；2：天） */
     timeUnit?: number;
     /**
-     * @description 取整模式（0: 向上取整，1: 向下取整，4: 四舍五入）
-     * @default 1
+     * @description 取整模式（0: 向上取整，3: 向下取整，4: 四舍五入）
+     * @default 4
      * @enum {integer}
      */
     roundingMode: never;
@@ -7122,7 +7145,7 @@ export interface OvertimeDurationCreate {
      */
     scale: number;
     /**
-     * @description 基数（单位：小时，适用于向上/向下取整）
+     * @description 基数（适用于向上/向下取整）
      * @default BigDecimal.valueOf(0.5f)
      */
     cardinal: number;
@@ -7143,8 +7166,6 @@ export interface OvertimeRuleSaveROCreate {
     name?: string;
     /** @description 加班类型（1：工作日加班；2：休息日加班；3：法定节假日加班） */
     overtimeType?: number;
-    /** @description 是否需要申请流程 */
-    isApprove?: boolean;
     /** @description 加班有效时间规则（1：按审批时间；2：按打卡时长；3：在审批时间段内按打卡时长计算） */
     effectiveTimeRule?: number;
     /** @description 加班计算规则 */
@@ -7153,8 +7174,21 @@ export interface OvertimeRuleSaveROCreate {
     accountingRule?: OvertimeAccountingRuleCreate;
     /** @description 加班时长规则 */
     durationRule?: OvertimeDurationCreate;
-    /** @description 加班允许的时间段 （1：仅允许上班前；2：仅允许下班后；3：全天均可） */
-    allowableTimePeriod?: number;
+    /**
+     * @description 上班前是否允许加班
+     * @default true
+     */
+    beforeWorkEnabled: boolean;
+    /**
+     * @description 班次内休息时段是否允许加班
+     * @default true
+     */
+    breakTimeEnabled: boolean;
+    /**
+     * @description 下班后是否允许加班
+     * @default true
+     */
+    afterWorkEnabled: boolean;
 }
 
 /** 原始 schema 名称: "ReissueClockRuleSaveROCreate" */
@@ -10544,10 +10578,15 @@ export interface ServiceResultListAppraiseConfigForcedRule {
 
 /** 原始 schema 名称: "ServiceResultListString" */
 export interface ServiceResultListString {
+    /** @description 业务状态码 */
     code?: string;
+    /** @description 业务成功标记 */
     success?: boolean;
+    /** @description 主数据 */
     data?: string[];
+    /** @description 业务状态消息 */
     message?: string;
+    /** @description trace id */
     tid?: string;
 }
 
@@ -10663,27 +10702,15 @@ export interface AppriasePostSaveCycleDTO {
 
 /** 原始 schema 名称: "OrderConditionQuery" */
 export interface OrderConditionQuery {
-    /** @description 排序字段 */
     orderBy?: string;
-    /** @description 排序规则（ASC，DESC） */
     sorter?: string;
 }
 
 /** 原始 schema 名称: "StaffRosterQueryROQuery" */
 export interface StaffRosterQueryROQuery {
-    /**
-     * @description 页码
-     * @default 1
-     */
-    current: number;
-    /**
-     * @description 每页条数
-     * @default 20
-     */
-    size: number;
-    /** @description 搜索关键字 */
+    current?: number;
+    size?: number;
     search?: string;
-    /** @description 排序规则 */
     order?: OrderConditionQuery[];
     /** @description 工号 */
     staffNumber?: string;
@@ -10706,6 +10733,8 @@ export interface StaffRosterQueryROQuery {
     contractStatus?: number;
     /** @description 查询字段 */
     fields?: string[];
+    /** @description 可见员工范围 */
+    visibleStaffNos?: number[];
 }
 
 /** 原始 schema 名称: "AppraiseTableVO" */
@@ -12074,31 +12103,17 @@ export interface AdminStaffGroupUpdateROModify {
 
 /** 原始 schema 名称: "PageMapString" */
 export interface PageMapString {
-    /** @default Collections.emptyList() */
-    records: MapString[];
-    /**
-     * Format: int64
-     * @default 0
-     */
-    total: number;
-    /**
-     * Format: int64
-     * @default 10
-     */
-    size: number;
-    /**
-     * Format: int64
-     * @default 1
-     */
-    current: number;
-    /** @default new ArrayList<>() */
-    orders: OrderItem[];
-    /** @default true */
-    optimizeCountSql: boolean;
-    /** @default true */
-    searchCount: boolean;
-    /** @default true */
-    optimizeJoinOfCountSql: boolean;
+    records?: MapString[];
+    /** Format: int64 */
+    total?: number;
+    /** Format: int64 */
+    size?: number;
+    /** Format: int64 */
+    current?: number;
+    orders?: OrderItem[];
+    optimizeCountSql?: boolean;
+    searchCount?: boolean;
+    optimizeJoinOfCountSql?: boolean;
     /** Format: int64 */
     maxLimit?: number;
     countId?: string;
@@ -12106,15 +12121,10 @@ export interface PageMapString {
 
 /** 原始 schema 名称: "ServiceResultPageMapString" */
 export interface ServiceResultPageMapString {
-    /** @description 业务状态码 */
     code?: string;
-    /** @description 业务成功标记 */
     success?: boolean;
-    /** @description 主数据 */
     data?: PageMapString;
-    /** @description 业务状态消息 */
     message?: string;
-    /** @description trace id */
     tid?: string;
 }
 
@@ -15065,6 +15075,10 @@ export interface DailyMonthlyReportCreateDTO {
     userReportDate?: string;
     /** @description 日报内容 */
     records?: DailyMonthlyReportRecordsDTO[];
+    /** @description 关联任务ID列表 */
+    workPlanIdList?: string[];
+    /** @description 创建任务请求参数 */
+    workPlanCreateDTOList?: WorkPlanCreateDTO[];
 }
 
 /** 原始 schema 名称: "DailyMonthlyReportEditDTO" */
@@ -15073,6 +15087,10 @@ export interface DailyMonthlyReportEditDTO {
     id?: string;
     /** @description 日报内容 */
     records?: DailyMonthlyReportRecordsDTO[];
+    /** @description 关联任务ID列表 */
+    workPlanIdList?: string[];
+    /** @description 创建任务请求参数 */
+    workPlanCreateDTOList?: WorkPlanCreateDTO[];
 }
 
 /** 原始 schema 名称: "DailyMonthlyReportAnnotationCreateDTO" */
@@ -15193,6 +15211,8 @@ export interface DailyMonthlyReportDetailVO {
     annotations?: DailyMonthlyReportAnnotationVO[];
     /** @description 内容 */
     records?: DailyMonthlyReportRecordsVO[];
+    /** @description 关联任务ID列表 */
+    workPlanIdList?: string[];
 }
 
 /** 原始 schema 名称: "ServiceResultListDailyMonthlyReportListVO" */
@@ -19427,8 +19447,11 @@ export interface Payroll {
     operateTime?: string;
     /** @description 发放部门ids */
     deptIds?: string;
-    /** @description 0 已撤回 1 已保存 2 已发送 */
+    /** @description 0 数据解析失败 1 数据解析成功 2 提交审核 3 审核通过 4 审核驳回  5 待发放  6 已发放 7 已查看 */
     status?: number;
+    headerJson?: string;
+    showJson?: string;
+    statusStr?: string;
     /** @description 发放部门 */
     deptList?: OrgDept[];
     detailList?: PayrollDetail[];
@@ -19448,10 +19471,15 @@ export interface ServiceResultPayrollFileInitRst {
 
 /** 原始 schema 名称: "ServiceResultListPayroll" */
 export interface ServiceResultListPayroll {
+    /** @description 业务状态码 */
     code?: string;
+    /** @description 业务成功标记 */
     success?: boolean;
+    /** @description 主数据 */
     data?: Payroll[];
+    /** @description 业务状态消息 */
     message?: string;
+    /** @description trace id */
     tid?: string;
 }
 
@@ -19527,7 +19555,7 @@ export interface ServiceResultIPageHelpES {
 
 /** 原始 schema 名称: "MapDatePermissionRelationDetailVO" */
 export interface MapDatePermissionRelationDetailVO {
-    0?: components["schemas"]["0"];
+    0?: Safe_Schema_0;
 }
 
 /** 原始 schema 名称: "GetCurrentStaffAllDataPermissionVO" */
@@ -19562,10 +19590,16 @@ export interface ExcelHeaderItem {
     title?: string;
     /** @description 是否必填 */
     required?: boolean;
+    /** @default 100 */
+    width: number;
+    /** @default true */
+    show: boolean;
     /** @description 数据类型：1-字符串 2-数值 */
     data_type?: number;
     /** @description 是否固定列 */
     fixed?: boolean;
+    /** @description name */
+    type?: string;
 }
 
 /** 原始 schema 名称: "PayrollExcelDynamicDataVO" */
@@ -19613,8 +19647,10 @@ export interface PayrollDetailDynamic {
     year?: number;
     /** @description 薪资所属月份 */
     month?: number;
-    /** @description 状态：0 已撤回 1 已保存 2 已发送（与原表枚举值一致） */
+    /** @description 状态： 0 数据解析失败 1 数据解析成功 2 提交审核 3 审核通过 4 审核驳回  5 待发放  6 已发放  7 已查看 */
     status?: number;
+    staffName?: string;
+    statusStr?: string;
     /** @description 发放日期（注：原表为LocalDateTime，新表SQL为date，此处保持与原表类型兼容，入库时自动截断时分秒） */
     sendDate?: string;
     /**
@@ -19643,11 +19679,15 @@ export interface PayrollDetailDynamic {
 
 /** 原始 schema 名称: "ServiceResultPayrollDetailDynamic" */
 export interface ServiceResultPayrollDetailDynamic {
+    /** @description 业务状态码 */
     code?: string;
+    /** @description 业务成功标记 */
     success?: boolean;
     /** @description 动态薪资明细表 */
     data?: PayrollDetailDynamic;
+    /** @description 业务状态消息 */
     message?: string;
+    /** @description trace id */
     tid?: string;
 }
 

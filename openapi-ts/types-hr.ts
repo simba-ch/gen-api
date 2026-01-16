@@ -3521,768 +3521,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/attendance/shift/list": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 考勤班次-分页列表 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["ShiftQueryROQuery"];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": {
-                         *         "records": [
-                         *           {
-                         *             "created": "",
-                         *             "updated": "",
-                         *             "creator": "",
-                         *             "updater": "",
-                         *             "id": 0,
-                         *             "name": "",
-                         *             "color": "",
-                         *             "beginTime": "",
-                         *             "endTime": ""
-                         *           }
-                         *         ],
-                         *         "total": 0,
-                         *         "size": 0,
-                         *         "current": 0,
-                         *         "orders": [
-                         *           {
-                         *             "column": "",
-                         *             "asc": false
-                         *           }
-                         *         ],
-                         *         "optimizeCountSql": false,
-                         *         "searchCount": false,
-                         *         "optimizeJoinOfCountSql": false,
-                         *         "maxLimit": 0,
-                         *         "countId": ""
-                         *       },
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResultPageShiftInfoVO"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/attendance/shift/detail": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 考勤班次-详情 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["BaseDetailQueryRODetail"];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": {
-                         *         "id": 0,
-                         *         "name": "",
-                         *         "timePeriodSeasons": [
-                         *           {
-                         *             "season": 0,
-                         *             "timePeriods": [
-                         *               {
-                         *                 "groupNo": 0,
-                         *                 "clockInRequired": false,
-                         *                 "clockOutRequired": false,
-                         *                 "periodBeginTime": "",
-                         *                 "clockInBeginTime": "",
-                         *                 "clockInEndTime": "",
-                         *                 "periodEndTime": "",
-                         *                 "clockOutBeginTime": "",
-                         *                 "clockOutEndTime": "",
-                         *                 "breakTimePeriods": [
-                         *                   {
-                         *                     "beginTime": "",
-                         *                     "endTime": ""
-                         *                   }
-                         *                 ]
-                         *               }
-                         *             ]
-                         *           }
-                         *         ],
-                         *         "workHours": 0,
-                         *         "hoursToDay": 0,
-                         *         "absentLateMinutes": 0,
-                         *         "halfDayWorkTimeSetting": {
-                         *           "am": {
-                         *             "beginTime": "",
-                         *             "endTime": ""
-                         *           },
-                         *           "pm": {
-                         *             "beginTime": "",
-                         *             "endTime": ""
-                         *           }
-                         *         },
-                         *         "color": "",
-                         *         "isDivisiveSeason": false,
-                         *         "summerMonth": [
-                         *           0
-                         *         ],
-                         *         "winterMonth": [
-                         *           0
-                         *         ],
-                         *         "flexibleClockSetting": {
-                         *           "version": 0,
-                         *           "flexibleMode": 0,
-                         *           "flexibleTimeSetting": {
-                         *             "advanceMinutes": 0,
-                         *             "lateMinutes": 0
-                         *           },
-                         *           "leaveLateArriveLateEnabled": false,
-                         *           "leaveLateArriveLateTimeSetting": [
-                         *             {
-                         *               "advanceMinutes": 0,
-                         *               "lateMinutes": 0
-                         *             }
-                         *           ],
-                         *           "modeOfAction": 0
-                         *         }
-                         *       },
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResultShiftVO"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/attendance/shift/saveA": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 考勤班次-添加 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["ShiftSaveROCreate"];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": {
-                         *         "id": 0,
-                         *         "name": "",
-                         *         "timePeriodSeasons": [
-                         *           {
-                         *             "season": 0,
-                         *             "timePeriods": [
-                         *               {
-                         *                 "groupNo": 0,
-                         *                 "clockInRequired": false,
-                         *                 "clockOutRequired": false,
-                         *                 "periodBeginTime": "",
-                         *                 "clockInBeginTime": "",
-                         *                 "clockInEndTime": "",
-                         *                 "periodEndTime": "",
-                         *                 "clockOutBeginTime": "",
-                         *                 "clockOutEndTime": "",
-                         *                 "breakTimePeriods": [
-                         *                   {
-                         *                     "beginTime": "",
-                         *                     "endTime": ""
-                         *                   }
-                         *                 ]
-                         *               }
-                         *             ]
-                         *           }
-                         *         ],
-                         *         "workHours": 0,
-                         *         "hoursToDay": 0,
-                         *         "absentLateMinutes": 0,
-                         *         "halfDayWorkTimeSetting": {
-                         *           "am": {
-                         *             "beginTime": "",
-                         *             "endTime": ""
-                         *           },
-                         *           "pm": {
-                         *             "beginTime": "",
-                         *             "endTime": ""
-                         *           }
-                         *         },
-                         *         "color": "",
-                         *         "isDivisiveSeason": false,
-                         *         "summerMonth": [
-                         *           0
-                         *         ],
-                         *         "winterMonth": [
-                         *           0
-                         *         ],
-                         *         "flexibleClockSetting": {
-                         *           "version": 0,
-                         *           "flexibleMode": 0,
-                         *           "flexibleTimeSetting": {
-                         *             "advanceMinutes": 0,
-                         *             "lateMinutes": 0
-                         *           },
-                         *           "leaveLateArriveLateEnabled": false,
-                         *           "leaveLateArriveLateTimeSetting": [
-                         *             {
-                         *               "advanceMinutes": 0,
-                         *               "lateMinutes": 0
-                         *             }
-                         *           ],
-                         *           "modeOfAction": 0
-                         *         }
-                         *       },
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResultShiftVO"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/attendance/shift/saveE": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 考勤班次-编辑 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["ShiftSaveROModify"];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": {
-                         *         "id": 0,
-                         *         "name": "",
-                         *         "timePeriodSeasons": [
-                         *           {
-                         *             "season": 0,
-                         *             "timePeriods": [
-                         *               {
-                         *                 "groupNo": 0,
-                         *                 "clockInRequired": false,
-                         *                 "clockOutRequired": false,
-                         *                 "periodBeginTime": "",
-                         *                 "clockInBeginTime": "",
-                         *                 "clockInEndTime": "",
-                         *                 "periodEndTime": "",
-                         *                 "clockOutBeginTime": "",
-                         *                 "clockOutEndTime": "",
-                         *                 "breakTimePeriods": [
-                         *                   {
-                         *                     "beginTime": "",
-                         *                     "endTime": ""
-                         *                   }
-                         *                 ]
-                         *               }
-                         *             ]
-                         *           }
-                         *         ],
-                         *         "workHours": 0,
-                         *         "hoursToDay": 0,
-                         *         "absentLateMinutes": 0,
-                         *         "halfDayWorkTimeSetting": {
-                         *           "am": {
-                         *             "beginTime": "",
-                         *             "endTime": ""
-                         *           },
-                         *           "pm": {
-                         *             "beginTime": "",
-                         *             "endTime": ""
-                         *           }
-                         *         },
-                         *         "color": "",
-                         *         "isDivisiveSeason": false,
-                         *         "summerMonth": [
-                         *           0
-                         *         ],
-                         *         "winterMonth": [
-                         *           0
-                         *         ],
-                         *         "flexibleClockSetting": {
-                         *           "version": 0,
-                         *           "flexibleMode": 0,
-                         *           "flexibleTimeSetting": {
-                         *             "advanceMinutes": 0,
-                         *             "lateMinutes": 0
-                         *           },
-                         *           "leaveLateArriveLateEnabled": false,
-                         *           "leaveLateArriveLateTimeSetting": [
-                         *             {
-                         *               "advanceMinutes": 0,
-                         *               "lateMinutes": 0
-                         *             }
-                         *           ],
-                         *           "modeOfAction": 0
-                         *         }
-                         *       },
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResultShiftVO"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/attendance/shift/del": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 考勤班次-逻辑删除 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["AttEditROModify"];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": false,
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResultBoolean"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/attendance/shift/groups": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 查询班次关联的考勤组 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["BaseDetailQueryRODetail"];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": [
-                         *         {
-                         *           "id": 0,
-                         *           "name": "",
-                         *           "groupType": 0
-                         *         }
-                         *       ],
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResultListGroupBaseInfo"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/attendance/shift/create": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 考勤班次-添加 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["ShiftSaveROCreate"];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": {
-                         *         "id": 0,
-                         *         "name": "",
-                         *         "timePeriodSeasons": [
-                         *           {
-                         *             "season": 0,
-                         *             "timePeriods": [
-                         *               {
-                         *                 "groupNo": 0,
-                         *                 "clockInRequired": false,
-                         *                 "clockOutRequired": false,
-                         *                 "periodBeginTime": "",
-                         *                 "clockInBeginTime": "",
-                         *                 "clockInEndTime": "",
-                         *                 "periodEndTime": "",
-                         *                 "clockOutBeginTime": "",
-                         *                 "clockOutEndTime": "",
-                         *                 "breakTimePeriods": [
-                         *                   {
-                         *                     "beginTime": "",
-                         *                     "endTime": ""
-                         *                   }
-                         *                 ]
-                         *               }
-                         *             ]
-                         *           }
-                         *         ],
-                         *         "workHours": 0,
-                         *         "hoursToDay": 0,
-                         *         "absentLateMinutes": 0,
-                         *         "halfDayWorkTimeSetting": {
-                         *           "am": {
-                         *             "beginTime": "",
-                         *             "endTime": ""
-                         *           },
-                         *           "pm": {
-                         *             "beginTime": "",
-                         *             "endTime": ""
-                         *           }
-                         *         },
-                         *         "color": "",
-                         *         "isDivisiveSeason": false,
-                         *         "summerMonth": [
-                         *           0
-                         *         ],
-                         *         "winterMonth": [
-                         *           0
-                         *         ],
-                         *         "flexibleClockSetting": {
-                         *           "version": 0,
-                         *           "flexibleMode": 0,
-                         *           "flexibleTimeSetting": {
-                         *             "advanceMinutes": 0,
-                         *             "lateMinutes": 0
-                         *           },
-                         *           "leaveLateArriveLateEnabled": false,
-                         *           "leaveLateArriveLateTimeSetting": [
-                         *             {
-                         *               "advanceMinutes": 0,
-                         *               "lateMinutes": 0
-                         *             }
-                         *           ],
-                         *           "modeOfAction": 0
-                         *         }
-                         *       },
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResultShiftVO"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/attendance/shift/update": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 考勤班次-编辑 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["ShiftSaveROModify"];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": {
-                         *         "id": 0,
-                         *         "name": "",
-                         *         "timePeriodSeasons": [
-                         *           {
-                         *             "season": 0,
-                         *             "timePeriods": [
-                         *               {
-                         *                 "groupNo": 0,
-                         *                 "clockInRequired": false,
-                         *                 "clockOutRequired": false,
-                         *                 "periodBeginTime": "",
-                         *                 "clockInBeginTime": "",
-                         *                 "clockInEndTime": "",
-                         *                 "periodEndTime": "",
-                         *                 "clockOutBeginTime": "",
-                         *                 "clockOutEndTime": "",
-                         *                 "breakTimePeriods": [
-                         *                   {
-                         *                     "beginTime": "",
-                         *                     "endTime": ""
-                         *                   }
-                         *                 ]
-                         *               }
-                         *             ]
-                         *           }
-                         *         ],
-                         *         "workHours": 0,
-                         *         "hoursToDay": 0,
-                         *         "absentLateMinutes": 0,
-                         *         "halfDayWorkTimeSetting": {
-                         *           "am": {
-                         *             "beginTime": "",
-                         *             "endTime": ""
-                         *           },
-                         *           "pm": {
-                         *             "beginTime": "",
-                         *             "endTime": ""
-                         *           }
-                         *         },
-                         *         "color": "",
-                         *         "isDivisiveSeason": false,
-                         *         "summerMonth": [
-                         *           0
-                         *         ],
-                         *         "winterMonth": [
-                         *           0
-                         *         ],
-                         *         "flexibleClockSetting": {
-                         *           "version": 0,
-                         *           "flexibleMode": 0,
-                         *           "flexibleTimeSetting": {
-                         *             "advanceMinutes": 0,
-                         *             "lateMinutes": 0
-                         *           },
-                         *           "leaveLateArriveLateEnabled": false,
-                         *           "leaveLateArriveLateTimeSetting": [
-                         *             {
-                         *               "advanceMinutes": 0,
-                         *               "lateMinutes": 0
-                         *             }
-                         *           ],
-                         *           "modeOfAction": 0
-                         *         }
-                         *       },
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResultShiftVO"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/attendance/rule/overtime/list": {
         parameters: {
             query?: never;
@@ -4324,7 +3562,6 @@ export interface paths {
                          *             "id": 0,
                          *             "name": "",
                          *             "overtimeType": 0,
-                         *             "isApprove": false,
                          *             "effectiveTimeRule": 0,
                          *             "calculationRule": {
                          *               "isDeductBreakTime": false,
@@ -4343,7 +3580,7 @@ export interface paths {
                          *               ],
                          *               "beginOvertimeAfterWork": 0,
                          *               "minOvertime": 0,
-                         *               "progressiveOvertime": 0
+                         *               "maxOvertime": 0
                          *             },
                          *             "accountingRule": {
                          *               "accountingMethod": 0,
@@ -4359,7 +3596,9 @@ export interface paths {
                          *               "cardinal": 0,
                          *               "dayConvert2Hours": 0
                          *             },
-                         *             "allowableTimePeriod": 0
+                         *             "beforeWorkEnabled": false,
+                         *             "breakTimeEnabled": false,
+                         *             "afterWorkEnabled": false
                          *           }
                          *         ],
                          *         "total": 0,
@@ -4431,7 +3670,6 @@ export interface paths {
                          *         "id": 0,
                          *         "name": "",
                          *         "overtimeType": 0,
-                         *         "isApprove": false,
                          *         "effectiveTimeRule": 0,
                          *         "calculationRule": {
                          *           "isDeductBreakTime": false,
@@ -4450,7 +3688,7 @@ export interface paths {
                          *           ],
                          *           "beginOvertimeAfterWork": 0,
                          *           "minOvertime": 0,
-                         *           "progressiveOvertime": 0
+                         *           "maxOvertime": 0
                          *         },
                          *         "accountingRule": {
                          *           "accountingMethod": 0,
@@ -4466,7 +3704,9 @@ export interface paths {
                          *           "cardinal": 0,
                          *           "dayConvert2Hours": 0
                          *         },
-                         *         "allowableTimePeriod": 0
+                         *         "beforeWorkEnabled": false,
+                         *         "breakTimeEnabled": false,
+                         *         "afterWorkEnabled": false
                          *       },
                          *       "message": "",
                          *       "tid": ""
@@ -4768,7 +4008,6 @@ export interface paths {
                          *         "id": 0,
                          *         "name": "",
                          *         "overtimeType": 0,
-                         *         "isApprove": false,
                          *         "effectiveTimeRule": 0,
                          *         "calculationRule": {
                          *           "isDeductBreakTime": false,
@@ -4787,7 +4026,7 @@ export interface paths {
                          *           ],
                          *           "beginOvertimeAfterWork": 0,
                          *           "minOvertime": 0,
-                         *           "progressiveOvertime": 0
+                         *           "maxOvertime": 0
                          *         },
                          *         "accountingRule": {
                          *           "accountingMethod": 0,
@@ -4803,7 +4042,9 @@ export interface paths {
                          *           "cardinal": 0,
                          *           "dayConvert2Hours": 0
                          *         },
-                         *         "allowableTimePeriod": 0
+                         *         "beforeWorkEnabled": false,
+                         *         "breakTimeEnabled": false,
+                         *         "afterWorkEnabled": false
                          *       },
                          *       "message": "",
                          *       "tid": ""
@@ -4859,7 +4100,6 @@ export interface paths {
                          *         "id": 0,
                          *         "name": "",
                          *         "overtimeType": 0,
-                         *         "isApprove": false,
                          *         "effectiveTimeRule": 0,
                          *         "calculationRule": {
                          *           "isDeductBreakTime": false,
@@ -4878,7 +4118,7 @@ export interface paths {
                          *           ],
                          *           "beginOvertimeAfterWork": 0,
                          *           "minOvertime": 0,
-                         *           "progressiveOvertime": 0
+                         *           "maxOvertime": 0
                          *         },
                          *         "accountingRule": {
                          *           "accountingMethod": 0,
@@ -4894,7 +4134,9 @@ export interface paths {
                          *           "cardinal": 0,
                          *           "dayConvert2Hours": 0
                          *         },
-                         *         "allowableTimePeriod": 0
+                         *         "beforeWorkEnabled": false,
+                         *         "breakTimeEnabled": false,
+                         *         "afterWorkEnabled": false
                          *       },
                          *       "message": "",
                          *       "tid": ""
@@ -5432,6 +4674,538 @@ export interface paths {
                          *     }
                          */
                         "application/json": components["schemas"]["ServiceResultBoolean"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/attendance/shift/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 考勤班次-分页列表 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["ShiftQueryROQuery"];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": {
+                         *         "records": [
+                         *           {
+                         *             "created": "",
+                         *             "updated": "",
+                         *             "creator": "",
+                         *             "updater": "",
+                         *             "id": 0,
+                         *             "name": "",
+                         *             "color": "",
+                         *             "beginTime": "",
+                         *             "endTime": ""
+                         *           }
+                         *         ],
+                         *         "total": 0,
+                         *         "size": 0,
+                         *         "current": 0,
+                         *         "orders": [
+                         *           {
+                         *             "column": "",
+                         *             "asc": false
+                         *           }
+                         *         ],
+                         *         "optimizeCountSql": false,
+                         *         "searchCount": false,
+                         *         "optimizeJoinOfCountSql": false,
+                         *         "maxLimit": 0,
+                         *         "countId": ""
+                         *       },
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResultPageShiftInfoVO"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/attendance/shift/detail": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 考勤班次-详情 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["BaseDetailQueryRODetail"];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": {
+                         *         "id": 0,
+                         *         "name": "",
+                         *         "timePeriodSeasons": [
+                         *           {
+                         *             "season": 0,
+                         *             "timePeriods": [
+                         *               {
+                         *                 "groupNo": 0,
+                         *                 "clockInRequired": false,
+                         *                 "clockOutRequired": false,
+                         *                 "periodBeginTime": "",
+                         *                 "clockInBeginTime": "",
+                         *                 "clockInEndTime": "",
+                         *                 "periodEndTime": "",
+                         *                 "clockOutBeginTime": "",
+                         *                 "clockOutEndTime": "",
+                         *                 "breakTimePeriods": [
+                         *                   {
+                         *                     "beginTime": "",
+                         *                     "endTime": ""
+                         *                   }
+                         *                 ]
+                         *               }
+                         *             ]
+                         *           }
+                         *         ],
+                         *         "workHours": 0,
+                         *         "hoursToDay": 0,
+                         *         "absentLateMinutes": 0,
+                         *         "halfDayWorkTimeSetting": {
+                         *           "am": {
+                         *             "beginTime": "",
+                         *             "endTime": ""
+                         *           },
+                         *           "pm": {
+                         *             "beginTime": "",
+                         *             "endTime": ""
+                         *           }
+                         *         },
+                         *         "color": "",
+                         *         "isDivisiveSeason": false,
+                         *         "summerMonth": [
+                         *           0
+                         *         ],
+                         *         "winterMonth": [
+                         *           0
+                         *         ],
+                         *         "flexibleClockSetting": {
+                         *           "version": 0,
+                         *           "flexibleMode": 0,
+                         *           "flexibleTimeSetting": {
+                         *             "advanceMinutes": 0,
+                         *             "lateMinutes": 0
+                         *           },
+                         *           "leaveLateArriveLateEnabled": false,
+                         *           "leaveLateArriveLateTimeSetting": [
+                         *             {
+                         *               "advanceMinutes": 0,
+                         *               "lateMinutes": 0
+                         *             }
+                         *           ],
+                         *           "modeOfAction": 0
+                         *         }
+                         *       },
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResultShiftVO"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/attendance/shift/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 考勤班次-添加 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["ShiftSaveROCreate"];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": {
+                         *         "id": 0,
+                         *         "name": "",
+                         *         "timePeriodSeasons": [
+                         *           {
+                         *             "season": 0,
+                         *             "timePeriods": [
+                         *               {
+                         *                 "groupNo": 0,
+                         *                 "clockInRequired": false,
+                         *                 "clockOutRequired": false,
+                         *                 "periodBeginTime": "",
+                         *                 "clockInBeginTime": "",
+                         *                 "clockInEndTime": "",
+                         *                 "periodEndTime": "",
+                         *                 "clockOutBeginTime": "",
+                         *                 "clockOutEndTime": "",
+                         *                 "breakTimePeriods": [
+                         *                   {
+                         *                     "beginTime": "",
+                         *                     "endTime": ""
+                         *                   }
+                         *                 ]
+                         *               }
+                         *             ]
+                         *           }
+                         *         ],
+                         *         "workHours": 0,
+                         *         "hoursToDay": 0,
+                         *         "absentLateMinutes": 0,
+                         *         "halfDayWorkTimeSetting": {
+                         *           "am": {
+                         *             "beginTime": "",
+                         *             "endTime": ""
+                         *           },
+                         *           "pm": {
+                         *             "beginTime": "",
+                         *             "endTime": ""
+                         *           }
+                         *         },
+                         *         "color": "",
+                         *         "isDivisiveSeason": false,
+                         *         "summerMonth": [
+                         *           0
+                         *         ],
+                         *         "winterMonth": [
+                         *           0
+                         *         ],
+                         *         "flexibleClockSetting": {
+                         *           "version": 0,
+                         *           "flexibleMode": 0,
+                         *           "flexibleTimeSetting": {
+                         *             "advanceMinutes": 0,
+                         *             "lateMinutes": 0
+                         *           },
+                         *           "leaveLateArriveLateEnabled": false,
+                         *           "leaveLateArriveLateTimeSetting": [
+                         *             {
+                         *               "advanceMinutes": 0,
+                         *               "lateMinutes": 0
+                         *             }
+                         *           ],
+                         *           "modeOfAction": 0
+                         *         }
+                         *       },
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResultShiftVO"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/attendance/shift/update": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 考勤班次-编辑 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["ShiftSaveROModify"];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": {
+                         *         "id": 0,
+                         *         "name": "",
+                         *         "timePeriodSeasons": [
+                         *           {
+                         *             "season": 0,
+                         *             "timePeriods": [
+                         *               {
+                         *                 "groupNo": 0,
+                         *                 "clockInRequired": false,
+                         *                 "clockOutRequired": false,
+                         *                 "periodBeginTime": "",
+                         *                 "clockInBeginTime": "",
+                         *                 "clockInEndTime": "",
+                         *                 "periodEndTime": "",
+                         *                 "clockOutBeginTime": "",
+                         *                 "clockOutEndTime": "",
+                         *                 "breakTimePeriods": [
+                         *                   {
+                         *                     "beginTime": "",
+                         *                     "endTime": ""
+                         *                   }
+                         *                 ]
+                         *               }
+                         *             ]
+                         *           }
+                         *         ],
+                         *         "workHours": 0,
+                         *         "hoursToDay": 0,
+                         *         "absentLateMinutes": 0,
+                         *         "halfDayWorkTimeSetting": {
+                         *           "am": {
+                         *             "beginTime": "",
+                         *             "endTime": ""
+                         *           },
+                         *           "pm": {
+                         *             "beginTime": "",
+                         *             "endTime": ""
+                         *           }
+                         *         },
+                         *         "color": "",
+                         *         "isDivisiveSeason": false,
+                         *         "summerMonth": [
+                         *           0
+                         *         ],
+                         *         "winterMonth": [
+                         *           0
+                         *         ],
+                         *         "flexibleClockSetting": {
+                         *           "version": 0,
+                         *           "flexibleMode": 0,
+                         *           "flexibleTimeSetting": {
+                         *             "advanceMinutes": 0,
+                         *             "lateMinutes": 0
+                         *           },
+                         *           "leaveLateArriveLateEnabled": false,
+                         *           "leaveLateArriveLateTimeSetting": [
+                         *             {
+                         *               "advanceMinutes": 0,
+                         *               "lateMinutes": 0
+                         *             }
+                         *           ],
+                         *           "modeOfAction": 0
+                         *         }
+                         *       },
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResultShiftVO"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/attendance/shift/del": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 考勤班次-逻辑删除 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["AttEditROModify"];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": false,
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResultBoolean"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/attendance/shift/groups": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 查询班次关联的考勤组 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["BaseDetailQueryRODetail"];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": [
+                         *         {
+                         *           "id": 0,
+                         *           "name": "",
+                         *           "groupType": 0
+                         *         }
+                         *       ],
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResultListGroupBaseInfo"];
                     };
                 };
             };
@@ -33396,6 +33170,9 @@ export interface paths {
                          *                   ],
                          *                   "createTime": ""
                          *                 }
+                         *               ],
+                         *               "workPlanIdList": [
+                         *                 ""
                          *               ]
                          *             }
                          *           ]
@@ -33482,6 +33259,9 @@ export interface paths {
                          *             ],
                          *             "createTime": ""
                          *           }
+                         *         ],
+                         *         "workPlanIdList": [
+                         *           ""
                          *         ]
                          *       },
                          *       "message": "",
@@ -48874,590 +48654,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/payroll/allSendType": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 获取所有发放类型 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": [
-                         *         ""
-                         *       ],
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResultListString"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/payroll/createPayRollDynamic": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 上传 工资表 */
-        post: {
-            parameters: {
-                query: {
-                    id?: number;
-                    sendType: string;
-                    sendTime: string;
-                };
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "multipart/form-data": {
-                        /** Format: binary */
-                        file: string;
-                    };
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": null,
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResult?"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/payroll/listPayroll": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 查询当前 企业 对应年份工资发放项目 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["BaseGetDTO"];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": [
-                         *         {
-                         *           "id": 0,
-                         *           "itemName": "",
-                         *           "sendType": "",
-                         *           "sendTime": "",
-                         *           "sendMonth": 0,
-                         *           "sendYear": 0,
-                         *           "coNo": 0,
-                         *           "staffId": 0,
-                         *           "operateTime": "",
-                         *           "deptIds": "",
-                         *           "status": 0,
-                         *           "deptList": [
-                         *             {
-                         *               "autoNo": 0,
-                         *               "name": "",
-                         *               "code": "",
-                         *               "sortOrder": 0,
-                         *               "parentDeptId": 0,
-                         *               "orgId": 0,
-                         *               "deptType": 0,
-                         *               "responsibleId": 0,
-                         *               "costId": 0,
-                         *               "enterpriseSubjectId": 0,
-                         *               "workplaceId": 0,
-                         *               "isSchedual": 0,
-                         *               "attendanceRuleId": 0,
-                         *               "schedualResponsibleId": 0,
-                         *               "schedualAuditId": 0,
-                         *               "deptAuthorized": 0,
-                         *               "isHr": 0,
-                         *               "isDeleted": 0,
-                         *               "enabled": 0,
-                         *               "coNo": 0,
-                         *               "created": "",
-                         *               "creator": "",
-                         *               "updated": "",
-                         *               "updater": "",
-                         *               "thirdPId": "",
-                         *               "thirdId": "",
-                         *               "third": "",
-                         *               "parentDeptName": ""
-                         *             }
-                         *           ],
-                         *           "detailList": [
-                         *             {
-                         *               "id": 0,
-                         *               "payrollId": 0,
-                         *               "staffId": 0,
-                         *               "coNo": 0,
-                         *               "year": 0,
-                         *               "month": 0,
-                         *               "status": 0,
-                         *               "sendDate": "",
-                         *               "baseSalary": 0,
-                         *               "performanceSalary": 0,
-                         *               "jobSalary": 0,
-                         *               "overtimePay": 0,
-                         *               "socialSecurityDeduct": 0,
-                         *               "providentFundDeduct": 0,
-                         *               "incomeTaxDeduct": 0,
-                         *               "companySocialSecurityCost": 0,
-                         *               "companyProvidentFundCost": 0,
-                         *               "actualSalary": 0,
-                         *               "deptId": 0,
-                         *               "deptName": "",
-                         *               "msg": ""
-                         *             }
-                         *           ],
-                         *           "detailDynamicList": [
-                         *             {
-                         *               "id": 0,
-                         *               "payrollId": 0,
-                         *               "staffId": 0,
-                         *               "coNo": 0,
-                         *               "year": 0,
-                         *               "month": 0,
-                         *               "status": 0,
-                         *               "sendDate": "",
-                         *               "deptId": 0,
-                         *               "deptName": "",
-                         *               "headerJson": "",
-                         *               "dataJson": "",
-                         *               "originDetailId": 0,
-                         *               "createTime": "",
-                         *               "updateTime": "",
-                         *               "msg": ""
-                         *             }
-                         *           ],
-                         *           "payrollFileInitRst": {
-                         *             "token": "",
-                         *             "payrollList": [
-                         *               {
-                         *                 "id": 0,
-                         *                 "payrollId": 0,
-                         *                 "staffId": 0,
-                         *                 "coNo": 0,
-                         *                 "year": 0,
-                         *                 "month": 0,
-                         *                 "status": 0,
-                         *                 "sendDate": "",
-                         *                 "baseSalary": 0,
-                         *                 "performanceSalary": 0,
-                         *                 "jobSalary": 0,
-                         *                 "overtimePay": 0,
-                         *                 "socialSecurityDeduct": 0,
-                         *                 "providentFundDeduct": 0,
-                         *                 "incomeTaxDeduct": 0,
-                         *                 "companySocialSecurityCost": 0,
-                         *                 "companyProvidentFundCost": 0,
-                         *                 "actualSalary": 0,
-                         *                 "deptId": 0,
-                         *                 "deptName": "",
-                         *                 "msg": ""
-                         *               }
-                         *             ]
-                         *           },
-                         *           "payrollExcelDynamicDataVO": {
-                         *             "detail": [
-                         *               {
-                         *                 "": {}
-                         *               }
-                         *             ],
-                         *             "headers": [
-                         *               {
-                         *                 "column": 0,
-                         *                 "title": "",
-                         *                 "required": false,
-                         *                 "data_type": 0,
-                         *                 "fixed": false
-                         *               }
-                         *             ],
-                         *             "parseSuccess": false,
-                         *             "parseMsg": ""
-                         *           }
-                         *         }
-                         *       ],
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResultListPayroll"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/payroll/publish": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 发送 工资单 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": number[];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": null,
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResult?"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/payroll/reset": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 撤回 工资单 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": number[];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": "",
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResultString"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/payroll/detail": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 工资条详情 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["BaseGetDTO"];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": {
-                         *         "id": 0,
-                         *         "payrollId": 0,
-                         *         "staffId": 0,
-                         *         "coNo": 0,
-                         *         "year": 0,
-                         *         "month": 0,
-                         *         "status": 0,
-                         *         "sendDate": "",
-                         *         "deptId": 0,
-                         *         "deptName": "",
-                         *         "headerJson": "",
-                         *         "dataJson": "",
-                         *         "originDetailId": 0,
-                         *         "createTime": "",
-                         *         "updateTime": "",
-                         *         "msg": ""
-                         *       },
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResultPayrollDetailDynamic"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/payroll/updateDetail": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 修改某个工资条的薪资数据 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["PayrollDetailDynamic"];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": {
-                         *         "id": 0,
-                         *         "payrollId": 0,
-                         *         "staffId": 0,
-                         *         "coNo": 0,
-                         *         "year": 0,
-                         *         "month": 0,
-                         *         "status": 0,
-                         *         "sendDate": "",
-                         *         "deptId": 0,
-                         *         "deptName": "",
-                         *         "headerJson": "",
-                         *         "dataJson": "",
-                         *         "originDetailId": 0,
-                         *         "createTime": "",
-                         *         "updateTime": "",
-                         *         "msg": ""
-                         *       },
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResultPayrollDetailDynamic"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/payroll/delDetail": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** 删除某个工资条 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: {
-                    /** @example Bearer {{Token}} */
-                    authorization?: string;
-                };
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: {
-                content: {
-                    "application/json": components["schemas"]["BaseGetDTO"];
-                };
-            };
-            responses: {
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        /**
-                         * @example {
-                         *       "code": "",
-                         *       "success": false,
-                         *       "data": null,
-                         *       "message": "",
-                         *       "tid": ""
-                         *     }
-                         */
-                        "application/json": components["schemas"]["ServiceResult?"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/v1/my/archive/avatar/modify": {
         parameters: {
             query?: never;
@@ -49896,7 +49092,7 @@ export interface paths {
             };
             requestBody?: {
                 content: {
-                    "application/json": components["schemas"]["BasePageQueryROQuery"];
+                    "application/json": components["schemas"]["StaffRosterQueryROQuery"];
                 };
             };
             responses: {
@@ -49912,16 +49108,7 @@ export interface paths {
                          *       "data": {
                          *         "records": [
                          *           {
-                         *             "staffNo": "",
-                         *             "personName": "",
-                         *             "boardDate": "",
-                         *             "deptNo": "",
-                         *             "joinCompanyDays": "",
-                         *             "positionNo": "",
-                         *             "staffAttribute": "",
-                         *             "staffLeader": "",
-                         *             "staffStatus": "",
-                         *             "personalPhoto": ""
+                         *             "": ""
                          *           }
                          *         ],
                          *         "total": 0,
@@ -49943,7 +49130,74 @@ export interface paths {
                          *       "tid": ""
                          *     }
                          */
-                        "application/json": components["schemas"]["ServiceResultPageTeamEmployeeVO"];
+                        "application/json": components["schemas"]["ServiceResultPageMapString"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/my/team/field/list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 查询我的团队字段列表 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": [
+                         *         {
+                         *           "groupName": "",
+                         *           "allowMultiple": false,
+                         *           "fields": [
+                         *             {
+                         *               "fieldName": "",
+                         *               "displayName": "",
+                         *               "fieldType": 0,
+                         *               "order": 0,
+                         *               "selectRequired": false,
+                         *               "selected": false,
+                         *               "exportEnabled": false,
+                         *               "options": [
+                         *                 ""
+                         *               ],
+                         *               "namespace": ""
+                         *             }
+                         *           ]
+                         *         }
+                         *       ],
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResultListStaffFieldVO"];
                     };
                 };
             };
@@ -50588,6 +49842,755 @@ export interface paths {
             requestBody?: {
                 content: {
                     "application/json": components["schemas"]["DrawDeptDTO"];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": null,
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResult?"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/payroll/allSendType": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 获取所有发放类型 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": [
+                         *         ""
+                         *       ],
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResultListString"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/payroll/createPayRollDynamic": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 上传 工资表 */
+        post: {
+            parameters: {
+                query: {
+                    id?: number;
+                    sendType: string;
+                    sendTime: string;
+                };
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "multipart/form-data": {
+                        /** Format: binary */
+                        file: string;
+                    };
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": null,
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResult?"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/payroll/listPayroll": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 查询当前 企业 对应年份工资发放项目 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["BaseGetDTO"];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": [
+                         *         {
+                         *           "id": 0,
+                         *           "itemName": "",
+                         *           "sendType": "",
+                         *           "sendTime": "",
+                         *           "sendMonth": 0,
+                         *           "sendYear": 0,
+                         *           "coNo": 0,
+                         *           "staffId": 0,
+                         *           "operateTime": "",
+                         *           "deptIds": "",
+                         *           "status": 0,
+                         *           "headerJson": "",
+                         *           "showJson": "",
+                         *           "statusStr": "",
+                         *           "deptList": [
+                         *             {
+                         *               "autoNo": 0,
+                         *               "name": "",
+                         *               "code": "",
+                         *               "sortOrder": 0,
+                         *               "parentDeptId": 0,
+                         *               "orgId": 0,
+                         *               "deptType": 0,
+                         *               "responsibleId": 0,
+                         *               "costId": 0,
+                         *               "enterpriseSubjectId": 0,
+                         *               "workplaceId": 0,
+                         *               "isSchedual": 0,
+                         *               "attendanceRuleId": 0,
+                         *               "schedualResponsibleId": 0,
+                         *               "schedualAuditId": 0,
+                         *               "deptAuthorized": 0,
+                         *               "isHr": 0,
+                         *               "isDeleted": 0,
+                         *               "enabled": 0,
+                         *               "coNo": 0,
+                         *               "created": "",
+                         *               "creator": "",
+                         *               "updated": "",
+                         *               "updater": "",
+                         *               "thirdPId": "",
+                         *               "thirdId": "",
+                         *               "third": "",
+                         *               "parentDeptName": ""
+                         *             }
+                         *           ],
+                         *           "detailList": [
+                         *             {
+                         *               "id": 0,
+                         *               "payrollId": 0,
+                         *               "staffId": 0,
+                         *               "coNo": 0,
+                         *               "year": 0,
+                         *               "month": 0,
+                         *               "status": 0,
+                         *               "sendDate": "",
+                         *               "baseSalary": 0,
+                         *               "performanceSalary": 0,
+                         *               "jobSalary": 0,
+                         *               "overtimePay": 0,
+                         *               "socialSecurityDeduct": 0,
+                         *               "providentFundDeduct": 0,
+                         *               "incomeTaxDeduct": 0,
+                         *               "companySocialSecurityCost": 0,
+                         *               "companyProvidentFundCost": 0,
+                         *               "actualSalary": 0,
+                         *               "deptId": 0,
+                         *               "deptName": "",
+                         *               "msg": ""
+                         *             }
+                         *           ],
+                         *           "detailDynamicList": [
+                         *             {
+                         *               "id": 0,
+                         *               "payrollId": 0,
+                         *               "staffId": 0,
+                         *               "coNo": 0,
+                         *               "year": 0,
+                         *               "month": 0,
+                         *               "status": 0,
+                         *               "staffName": "",
+                         *               "statusStr": "",
+                         *               "sendDate": "",
+                         *               "deptId": 0,
+                         *               "deptName": "",
+                         *               "headerJson": "",
+                         *               "dataJson": "",
+                         *               "originDetailId": 0,
+                         *               "createTime": "",
+                         *               "updateTime": "",
+                         *               "msg": ""
+                         *             }
+                         *           ],
+                         *           "payrollFileInitRst": {
+                         *             "token": "",
+                         *             "payrollList": [
+                         *               {
+                         *                 "id": 0,
+                         *                 "payrollId": 0,
+                         *                 "staffId": 0,
+                         *                 "coNo": 0,
+                         *                 "year": 0,
+                         *                 "month": 0,
+                         *                 "status": 0,
+                         *                 "sendDate": "",
+                         *                 "baseSalary": 0,
+                         *                 "performanceSalary": 0,
+                         *                 "jobSalary": 0,
+                         *                 "overtimePay": 0,
+                         *                 "socialSecurityDeduct": 0,
+                         *                 "providentFundDeduct": 0,
+                         *                 "incomeTaxDeduct": 0,
+                         *                 "companySocialSecurityCost": 0,
+                         *                 "companyProvidentFundCost": 0,
+                         *                 "actualSalary": 0,
+                         *                 "deptId": 0,
+                         *                 "deptName": "",
+                         *                 "msg": ""
+                         *               }
+                         *             ]
+                         *           },
+                         *           "payrollExcelDynamicDataVO": {
+                         *             "detail": [
+                         *               {
+                         *                 "": {}
+                         *               }
+                         *             ],
+                         *             "headers": [
+                         *               {
+                         *                 "column": 0,
+                         *                 "title": "",
+                         *                 "required": false,
+                         *                 "width": 0,
+                         *                 "show": false,
+                         *                 "data_type": 0,
+                         *                 "fixed": false,
+                         *                 "type": ""
+                         *               }
+                         *             ],
+                         *             "parseSuccess": false,
+                         *             "parseMsg": ""
+                         *           }
+                         *         }
+                         *       ],
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResultListPayroll"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/payroll/publish": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 发送 工资单 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": number[];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": null,
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResult?"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/payroll/reset": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 撤回 工资单 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": number[];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": "",
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResultString"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/payroll/detail": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 工资条详情 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["BaseGetDTO"];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": {
+                         *         "id": 0,
+                         *         "payrollId": 0,
+                         *         "staffId": 0,
+                         *         "coNo": 0,
+                         *         "year": 0,
+                         *         "month": 0,
+                         *         "status": 0,
+                         *         "staffName": "",
+                         *         "statusStr": "",
+                         *         "sendDate": "",
+                         *         "deptId": 0,
+                         *         "deptName": "",
+                         *         "headerJson": "",
+                         *         "dataJson": "",
+                         *         "originDetailId": 0,
+                         *         "createTime": "",
+                         *         "updateTime": "",
+                         *         "msg": ""
+                         *       },
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResultPayrollDetailDynamic"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/payroll/updateDetail": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 修改某个工资条的薪资数据 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["PayrollDetailDynamic"];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": {
+                         *         "id": 0,
+                         *         "payrollId": 0,
+                         *         "staffId": 0,
+                         *         "coNo": 0,
+                         *         "year": 0,
+                         *         "month": 0,
+                         *         "status": 0,
+                         *         "staffName": "",
+                         *         "statusStr": "",
+                         *         "sendDate": "",
+                         *         "deptId": 0,
+                         *         "deptName": "",
+                         *         "headerJson": "",
+                         *         "dataJson": "",
+                         *         "originDetailId": 0,
+                         *         "createTime": "",
+                         *         "updateTime": "",
+                         *         "msg": ""
+                         *       },
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResultPayrollDetailDynamic"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/payroll/delDetail": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 删除某个工资条 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["BaseGetDTO"];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": null,
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResult?"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/payroll/delPayroll": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 删除某个月份工资 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["BaseGetDTO"];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": null,
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResult?"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/payroll/updatePayroll": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 更新 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["Payroll"];
+                };
+            };
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        /**
+                         * @example {
+                         *       "code": "",
+                         *       "success": false,
+                         *       "data": null,
+                         *       "message": "",
+                         *       "tid": ""
+                         *     }
+                         */
+                        "application/json": components["schemas"]["ServiceResult?"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/payroll/resetDetailStaff": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 重新绑定人员 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: {
+                    /** @example Bearer {{Token}} */
+                    authorization?: string;
+                };
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["PayrollDetailDynamic"];
                 };
             };
             responses: {
@@ -51996,21 +51999,21 @@ export interface components {
              */
             beginOvertimeAfterWork: number;
             /**
-             * @description 最小加班时间（单位：分钟）
+             * @description 最短加班时间（单位：分钟）
              * @default 0
              */
             minOvertime: number;
             /**
-             * @description 累进加班时间（单位：分钟）
+             * @description 最长加班时间（单位：分钟，最长不能超过24小时）
              * @default 0
              */
-            progressiveOvertime: number;
+            maxOvertime: number;
         };
         OvertimeAccountingRule: {
             /** @description 核算方式 (1：计为调休；2：计算加班费；3：员工自选) */
             accountingMethod: number;
             /** @description 调休换算比例 */
-            ratio: number;
+            ratio?: number;
             /** @description 调休假生效方式（1：即时生效；2：下月生效；3：延迟生效） */
             effectiveMethod?: number;
             /** @description 延迟天数 */
@@ -52022,8 +52025,8 @@ export interface components {
             /** @description 时长单位（1：小时；2：天） */
             timeUnit?: number;
             /**
-             * @description 取整模式（0: 向上取整，1: 向下取整，4: 四舍五入）
-             * @default 1
+             * @description 取整模式（0: 向上取整，3: 向下取整，4: 四舍五入）
+             * @default 4
              * @enum {integer}
              */
             roundingMode: never;
@@ -52033,7 +52036,7 @@ export interface components {
              */
             scale: number;
             /**
-             * @description 基数（单位：小时，适用于向上/向下取整）
+             * @description 基数（适用于向上/向下取整）
              * @default BigDecimal.valueOf(0.5f)
              */
             cardinal: number;
@@ -52049,9 +52052,7 @@ export interface components {
             name?: string;
             /** @description 加班类型（1：工作日加班；2：休息日加班；3：法定节假日加班） */
             overtimeType?: number;
-            /** @description 是否需要申请流程 */
-            isApprove?: boolean;
-            /** @description 加班有效时间规则 */
+            /** @description 加班有效时间规则（1：按审批时间；2：按打卡时长；3：在审批时间段内按打卡时长计算） */
             effectiveTimeRule?: number;
             /** @description 加班计算规则 */
             calculationRule?: components["schemas"]["OvertimeCalculateRule"];
@@ -52059,8 +52060,12 @@ export interface components {
             accountingRule?: components["schemas"]["OvertimeAccountingRule"];
             /** @description 加班时长规则 */
             durationRule?: components["schemas"]["OvertimeDuration"];
-            /** @description 加班允许的时间段 */
-            allowableTimePeriod?: number;
+            /** @description 上班前是否允许加班 */
+            beforeWorkEnabled?: boolean;
+            /** @description 班次内休息时段是否允许加班 */
+            breakTimeEnabled?: boolean;
+            /** @description 下班后是否允许加班 */
+            afterWorkEnabled?: boolean;
         };
         PageOvertimeRuleVO: {
             records?: components["schemas"]["OvertimeRuleVO"][];
@@ -53040,15 +53045,15 @@ export interface components {
              */
             beginOvertimeAfterWork: number;
             /**
-             * @description 最小加班时间（单位：分钟）
+             * @description 最短加班时间（单位：分钟）
              * @default 0
              */
             minOvertime: number;
             /**
-             * @description 累进加班时间（单位：分钟）
+             * @description 最长加班时间（单位：分钟，最长不能超过24小时）
              * @default 0
              */
-            progressiveOvertime: number;
+            maxOvertime: number;
         };
         OvertimeAccountingRuleModify: {
             /** @description 核算方式 (1：计为调休；2：计算加班费；3：员工自选) */
@@ -53066,8 +53071,8 @@ export interface components {
             /** @description 时长单位（1：小时；2：天） */
             timeUnit?: number;
             /**
-             * @description 取整模式（0: 向上取整，1: 向下取整，4: 四舍五入）
-             * @default 1
+             * @description 取整模式（0: 向上取整，3: 向下取整，4: 四舍五入）
+             * @default 4
              * @enum {integer}
              */
             roundingMode: never;
@@ -53077,7 +53082,7 @@ export interface components {
              */
             scale: number;
             /**
-             * @description 基数（单位：小时，适用于向上/向下取整）
+             * @description 基数（适用于向上/向下取整）
              * @default BigDecimal.valueOf(0.5f)
              */
             cardinal: number;
@@ -53096,8 +53101,6 @@ export interface components {
             name?: string;
             /** @description 加班类型（1：工作日加班；2：休息日加班；3：法定节假日加班） */
             overtimeType?: number;
-            /** @description 是否需要申请流程 */
-            isApprove?: boolean;
             /** @description 加班有效时间规则（1：按审批时间；2：按打卡时长；3：在审批时间段内按打卡时长计算） */
             effectiveTimeRule?: number;
             /** @description 加班计算规则 */
@@ -53106,8 +53109,21 @@ export interface components {
             accountingRule?: components["schemas"]["OvertimeAccountingRuleModify"];
             /** @description 加班时长规则 */
             durationRule?: components["schemas"]["OvertimeDurationModify"];
-            /** @description 加班允许的时间段 （1：仅允许上班前；2：仅允许下班后；3：全天均可） */
-            allowableTimePeriod?: number;
+            /**
+             * @description 上班前是否允许加班
+             * @default true
+             */
+            beforeWorkEnabled: boolean;
+            /**
+             * @description 班次内休息时段是否允许加班
+             * @default true
+             */
+            breakTimeEnabled: boolean;
+            /**
+             * @description 下班后是否允许加班
+             * @default true
+             */
+            afterWorkEnabled: boolean;
         };
         ServiceResultBoolean: {
             /** @description 业务状态码 */
@@ -55297,7 +55313,7 @@ export interface components {
         };
         key: Record<string, never>;
         MapObject: {
-            key?: components["schemas"]["key"];
+            key?: components["schemas"]["key1"];
         };
         ServiceResultMapObject: {
             code?: string;
@@ -57209,15 +57225,15 @@ export interface components {
              */
             beginOvertimeAfterWork: number;
             /**
-             * @description 最小加班时间（单位：分钟）
+             * @description 最短加班时间（单位：分钟）
              * @default 0
              */
             minOvertime: number;
             /**
-             * @description 累进加班时间（单位：分钟）
+             * @description 最长加班时间（单位：分钟，最长不能超过24小时）
              * @default 0
              */
-            progressiveOvertime: number;
+            maxOvertime: number;
         };
         OvertimeAccountingRuleCreate: {
             /** @description 核算方式 (1：计为调休；2：计算加班费；3：员工自选) */
@@ -57235,8 +57251,8 @@ export interface components {
             /** @description 时长单位（1：小时；2：天） */
             timeUnit?: number;
             /**
-             * @description 取整模式（0: 向上取整，1: 向下取整，4: 四舍五入）
-             * @default 1
+             * @description 取整模式（0: 向上取整，3: 向下取整，4: 四舍五入）
+             * @default 4
              * @enum {integer}
              */
             roundingMode: never;
@@ -57246,7 +57262,7 @@ export interface components {
              */
             scale: number;
             /**
-             * @description 基数（单位：小时，适用于向上/向下取整）
+             * @description 基数（适用于向上/向下取整）
              * @default BigDecimal.valueOf(0.5f)
              */
             cardinal: number;
@@ -57265,8 +57281,6 @@ export interface components {
             name?: string;
             /** @description 加班类型（1：工作日加班；2：休息日加班；3：法定节假日加班） */
             overtimeType?: number;
-            /** @description 是否需要申请流程 */
-            isApprove?: boolean;
             /** @description 加班有效时间规则（1：按审批时间；2：按打卡时长；3：在审批时间段内按打卡时长计算） */
             effectiveTimeRule?: number;
             /** @description 加班计算规则 */
@@ -57275,8 +57289,21 @@ export interface components {
             accountingRule?: components["schemas"]["OvertimeAccountingRuleCreate"];
             /** @description 加班时长规则 */
             durationRule?: components["schemas"]["OvertimeDurationCreate"];
-            /** @description 加班允许的时间段 （1：仅允许上班前；2：仅允许下班后；3：全天均可） */
-            allowableTimePeriod?: number;
+            /**
+             * @description 上班前是否允许加班
+             * @default true
+             */
+            beforeWorkEnabled: boolean;
+            /**
+             * @description 班次内休息时段是否允许加班
+             * @default true
+             */
+            breakTimeEnabled: boolean;
+            /**
+             * @description 下班后是否允许加班
+             * @default true
+             */
+            afterWorkEnabled: boolean;
         };
         ReissueClockRuleSaveROCreate: {
             /**
@@ -60264,10 +60291,15 @@ export interface components {
             tid?: string;
         };
         ServiceResultListString: {
+            /** @description 业务状态码 */
             code?: string;
+            /** @description 业务成功标记 */
             success?: boolean;
+            /** @description 主数据 */
             data?: string[];
+            /** @description 业务状态消息 */
             message?: string;
+            /** @description trace id */
             tid?: string;
         };
         FieldOrderCreate: {
@@ -60361,25 +60393,13 @@ export interface components {
             cycleConfigList?: components["schemas"]["CycleConfig"][];
         };
         OrderConditionQuery: {
-            /** @description 排序字段 */
             orderBy?: string;
-            /** @description 排序规则（ASC，DESC） */
             sorter?: string;
         };
         StaffRosterQueryROQuery: {
-            /**
-             * @description 页码
-             * @default 1
-             */
-            current: number;
-            /**
-             * @description 每页条数
-             * @default 20
-             */
-            size: number;
-            /** @description 搜索关键字 */
+            current?: number;
+            size?: number;
             search?: string;
-            /** @description 排序规则 */
             order?: components["schemas"]["OrderConditionQuery"][];
             /** @description 工号 */
             staffNumber?: string;
@@ -60402,6 +60422,8 @@ export interface components {
             contractStatus?: number;
             /** @description 查询字段 */
             fields?: string[];
+            /** @description 可见员工范围 */
+            visibleStaffNos?: number[];
         };
         AppraiseTableVO: {
             /**
@@ -61662,45 +61684,26 @@ export interface components {
             fields?: components["schemas"]["FieldValueModify"][][];
         };
         PageMapString: {
-            /** @default Collections.emptyList() */
-            records: components["schemas"]["MapString"][];
-            /**
-             * Format: int64
-             * @default 0
-             */
-            total: number;
-            /**
-             * Format: int64
-             * @default 10
-             */
-            size: number;
-            /**
-             * Format: int64
-             * @default 1
-             */
-            current: number;
-            /** @default new ArrayList<>() */
-            orders: components["schemas"]["OrderItem"][];
-            /** @default true */
-            optimizeCountSql: boolean;
-            /** @default true */
-            searchCount: boolean;
-            /** @default true */
-            optimizeJoinOfCountSql: boolean;
+            records?: components["schemas"]["MapString"][];
+            /** Format: int64 */
+            total?: number;
+            /** Format: int64 */
+            size?: number;
+            /** Format: int64 */
+            current?: number;
+            orders?: components["schemas"]["OrderItem"][];
+            optimizeCountSql?: boolean;
+            searchCount?: boolean;
+            optimizeJoinOfCountSql?: boolean;
             /** Format: int64 */
             maxLimit?: number;
             countId?: string;
         };
         ServiceResultPageMapString: {
-            /** @description 业务状态码 */
             code?: string;
-            /** @description 业务成功标记 */
             success?: boolean;
-            /** @description 主数据 */
             data?: components["schemas"]["PageMapString"];
-            /** @description 业务状态消息 */
             message?: string;
-            /** @description trace id */
             tid?: string;
         };
         DocFolderSaveDTO: {
@@ -64367,12 +64370,20 @@ export interface components {
             userReportDate?: string;
             /** @description 日报内容 */
             records?: components["schemas"]["DailyMonthlyReportRecordsDTO"][];
+            /** @description 关联任务ID列表 */
+            workPlanIdList?: string[];
+            /** @description 创建任务请求参数 */
+            workPlanCreateDTOList?: components["schemas"]["WorkPlanCreateDTO"][];
         };
         DailyMonthlyReportEditDTO: {
             /** @description 主键ID */
             id?: string;
             /** @description 日报内容 */
             records?: components["schemas"]["DailyMonthlyReportRecordsDTO"][];
+            /** @description 关联任务ID列表 */
+            workPlanIdList?: string[];
+            /** @description 创建任务请求参数 */
+            workPlanCreateDTOList?: components["schemas"]["WorkPlanCreateDTO"][];
         };
         DailyMonthlyReportAnnotationCreateDTO: {
             /** @description 关联日月报ID */
@@ -64469,6 +64480,8 @@ export interface components {
             annotations?: components["schemas"]["DailyMonthlyReportAnnotationVO"][];
             /** @description 内容 */
             records?: components["schemas"]["DailyMonthlyReportRecordsVO"][];
+            /** @description 关联任务ID列表 */
+            workPlanIdList?: string[];
         };
         ServiceResultListDailyMonthlyReportListVO: {
             code?: string;
@@ -68167,8 +68180,11 @@ export interface components {
             operateTime?: string;
             /** @description 发放部门ids */
             deptIds?: string;
-            /** @description 0 已撤回 1 已保存 2 已发送 */
+            /** @description 0 数据解析失败 1 数据解析成功 2 提交审核 3 审核通过 4 审核驳回  5 待发放  6 已发放 7 已查看 */
             status?: number;
+            headerJson?: string;
+            showJson?: string;
+            statusStr?: string;
             /** @description 发放部门 */
             deptList?: components["schemas"]["OrgDept"][];
             detailList?: components["schemas"]["PayrollDetail"][];
@@ -68184,10 +68200,15 @@ export interface components {
             tid?: string;
         };
         ServiceResultListPayroll: {
+            /** @description 业务状态码 */
             code?: string;
+            /** @description 业务成功标记 */
             success?: boolean;
+            /** @description 主数据 */
             data?: components["schemas"]["Payroll"][];
+            /** @description 业务状态消息 */
             message?: string;
+            /** @description trace id */
             tid?: string;
         };
         ServiceResultPayrollDetail: {
@@ -68282,10 +68303,16 @@ export interface components {
             title?: string;
             /** @description 是否必填 */
             required?: boolean;
+            /** @default 100 */
+            width: number;
+            /** @default true */
+            show: boolean;
             /** @description 数据类型：1-字符串 2-数值 */
             data_type?: number;
             /** @description 是否固定列 */
             fixed?: boolean;
+            /** @description name */
+            type?: string;
         };
         PayrollExcelDynamicDataVO: {
             detail?: components["schemas"]["MapObject"][];
@@ -68327,8 +68354,10 @@ export interface components {
             year?: number;
             /** @description 薪资所属月份 */
             month?: number;
-            /** @description 状态：0 已撤回 1 已保存 2 已发送（与原表枚举值一致） */
+            /** @description 状态： 0 数据解析失败 1 数据解析成功 2 提交审核 3 审核通过 4 审核驳回  5 待发放  6 已发放  7 已查看 */
             status?: number;
+            staffName?: string;
+            statusStr?: string;
             /** @description 发放日期（注：原表为LocalDateTime，新表SQL为date，此处保持与原表类型兼容，入库时自动截断时分秒） */
             sendDate?: string;
             /**
@@ -68355,11 +68384,15 @@ export interface components {
             msg?: string;
         };
         ServiceResultPayrollDetailDynamic: {
+            /** @description 业务状态码 */
             code?: string;
+            /** @description 业务成功标记 */
             success?: boolean;
             /** @description 动态薪资明细表 */
             data?: components["schemas"]["PayrollDetailDynamic"];
+            /** @description 业务状态消息 */
             message?: string;
+            /** @description trace id */
             tid?: string;
         };
         WorkPlanEditDirectorDTO: {
