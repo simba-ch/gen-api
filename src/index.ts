@@ -9,12 +9,16 @@ env.config();
 
 let url = process.env.URL!;
 url = process.env.HR_URL!;
+
 // const api = await openapiTS(url);
+
 // writeNodesToFile(api, "./openapi-ts/types-hr.ts");
+
 // extractSchemasAsInterfaces(api, "src/api/schemas-hr.ts");
-generateSchemasFromTypes(
-  path.resolve(
-    path.dirname(fileURLToPath(import.meta.url)),
-    "./api/schemas-hr1.ts"
-  )
-);
+
+// generateSchemasFromTypes(
+//   path.resolve(
+//     path.dirname(fileURLToPath(import.meta.url)),
+//     "./api/schemas-hr2.ts"
+//   )
+// );

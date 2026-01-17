@@ -1,3 +1,5 @@
+// 从文件 types.ts 中生成 OpenAPI schemas 对应的 TS 接口文件
+
 import ts from "typescript";
 import fs from "fs/promises";
 import path from "path";

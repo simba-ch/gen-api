@@ -1,11 +1,16 @@
-// typedRequest.ts
-import type { paths } from "../../openapi-ts/types.ts";
+// 约束请求方法和参数类型，适配 OpenAPI 3.0.x 标准
+
+import type { paths } from "../../openapi-ts/types-hr.ts";
 
 /* ---------------------------------- */
 /* 0️⃣ 工具类型 */
 /* ---------------------------------- */
 
-type IsNever<T> = [T] extends [never] ? true : false;
+type IsNeverOrUndefined<T> = [T] extends [never]
+  ? true
+  : undefined extends T
+    ? true
+    : false;
 
 /**
  * 过滤掉：
@@ -15,7 +20,7 @@ type IsNever<T> = [T] extends [never] ? true : false;
 type ValidMethods<P extends keyof paths> = {
   [M in keyof paths[P]]: M extends "parameters"
     ? never
-    : IsNever<paths[P][M]> extends true
+    : IsNeverOrUndefined<paths[P][M]> extends true
       ? never
       : M;
 }[keyof paths[P]];
