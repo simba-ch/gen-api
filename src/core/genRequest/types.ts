@@ -15,7 +15,7 @@
  * - 支持跨端和不同请求库
  */
 
-import type { GeneratedOperation } from "./operation";
+import type { GeneratedOperation } from "./operation.ts";
 
 export type OperationParams<O extends GeneratedOperation> = O["request"];
 

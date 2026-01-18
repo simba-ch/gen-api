@@ -12,20 +12,22 @@
  * - endpoints 文件内部调用 client.request 发送请求
  */
 
-
-import type { paths } from "../../../openapi-ts/types";
-import type { HttpAdapter, OperationParams, OperationResponse } from "./types";
-import { buildUrl } from "./buildUrl";
+import type { HttpAdapter, OperationParams, OperationResponse } from "./types.ts";
+import { buildUrl } from "./buildUrl.js";
 
 export function createClient(adapter: HttpAdapter) {
   return {
     request: async <P extends keyof paths, M extends keyof paths[P]>(
       path: P,
       method: M,
-      params: OperationParams<paths[P][M]>
+      params: OperationParams<paths[P][M]>,
     ): Promise<OperationResponse<paths[P][M]>> => {
       return adapter.request({
-        url: buildUrl(path as string, params?.path as any, params?.query as any),
+        url: buildUrl(
+          path as string,
+          params?.path as any,
+          params?.query as any,
+        ),
         method: method as string,
         body: params?.body,
         headers: params?.headers,

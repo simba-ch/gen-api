@@ -1,23 +1,26 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "declaration": true,
-    "outDir": "dist",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true, // 或 "emitDeclarationOnly": true
-    "baseUrl": "./src",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["*"],
-      "@core/*": ["core/*"]
-    }
+      "@": ["src"],
+      "@/*": ["src/*"],
+      "@script": ["script"],
+      "@script/*": ["script/*"],
+      "@temp/*": ["temp/*"],
+      "@types/*": ["types/*"],
+      "@core": ["src/core"],
+      "@core/*": ["src/core/*"],
+      "@utils": ["src/utils"],
+      "@utils/*": ["src/utils/*"]
+    },
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "strict": true,
+    "skipLibCheck": true
   },
-  "include": ["src"],
-  "ts-node": {
-    "require": ["tsconfig-paths/register"]
-  }
+  "include": ["src", "temp", "scripts", "types"]
 }
