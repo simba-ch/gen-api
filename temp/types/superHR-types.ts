@@ -1,3 +1,4 @@
+// 原始 schema 名称: "0"
 export interface Safe_Type_0 {
     /** @description 是否全部权限 */
     allPermissionFlag?: boolean;
@@ -7,6 +8,7 @@ export interface Safe_Type_0 {
     deptIdList?: number[];
 }
 
+// 原始 schema 名称: "ServiceResult?"
 export interface ServiceResultOptional {
     /** @description 业务状态码 */
     code?: string;
@@ -1024,6 +1026,7 @@ export interface ReturnTString {
     content?: string;
 }
 
+// 原始 schema 名称: "ReturnT?"
 export interface ReturnTOptional {
     code?: number;
     msg?: string;
@@ -3570,6 +3573,7 @@ export interface ServiceResultPageCompanyThirdPartyConfig {
     tid?: string;
 }
 
+// 原始 schema 名称: "Page?"
 export interface PageOptional {
     records?: Record<string, never>[];
     /** Format: int64 */
@@ -3622,6 +3626,7 @@ export interface ExcelHandleRequestStaffImportParam {
     fileName: string;
 }
 
+// 原始 schema 名称: "DisplayValueConverter?"
 export type DisplayValueConverterOptional = Record<string, never>;
 
 export interface ServiceResultListStaffAppVo {
@@ -4411,6 +4416,7 @@ export interface DeptWithConflictOrgDept {
     msg?: string;
 }
 
+// 原始 schema 名称: "ServiceResultPage?"
 export interface ServiceResultPageOptional {
     code?: string;
     success?: boolean;
@@ -4427,6 +4433,7 @@ export interface ServiceResultFieldMatchResponse {
     tid?: string;
 }
 
+// 原始 schema 名称: "EmptyValueSetHandler?"
 export type EmptyValueSetHandlerOptional = Record<string, never>;
 
 export interface DeptExportRO {
@@ -6378,6 +6385,7 @@ export interface MapObject {
     key?: key2;
 }
 
+// 原始 schema 名称: "ServiceResult?3"
 export interface ServiceResult_3 {
     code?: string;
     success?: boolean;

@@ -1,8 +1,9 @@
 import ts from "typescript";
-import fs from "fs";
-import { safeNameMap, toSafeInterfaceName } from "./toSafeInterfaceName.ts";
-import { printNode } from "./parseOpenapi.ts";
-import { transformPropertyType } from "./transformPropertyType.ts";
+import { toSafeInterfaceName } from "@utils/toSafeInterfaceName.ts";
+import { printNode } from "@utils/printNode.ts";
+import { transformPropertyType } from "@utils/transformPropertyType.ts";
+import fs from "fs/promises";
+import path from "path";
 
 function parsePropertyName(name: ts.PropertyName): string {
 
@@ -19,7 +20,7 @@ function parsePropertyName(name: ts.PropertyName): string {
 }
 
 
-export function printSchemaMembers(componentsInterface: ts.InterfaceDeclaration) {
+export async function printSchemaMembers(componentsInterface: ts.InterfaceDeclaration, outputFile: string) {
     const schemasProp = componentsInterface.members.find(
         (m): m is ts.PropertySignature =>
             ts.isPropertySignature(m) &&
@@ -52,7 +53,6 @@ export function printSchemaMembers(componentsInterface: ts.InterfaceDeclaration)
 
         if (!safeSchemaName) continue;
         let iface: ts.Statement;
-        // let newMember = member
         let newMembers: ts.TypeElement[] = []
         if (member.type && ts.isTypeLiteralNode(member.type)) {
             newMembers = member.type.members.map((m) => {
@@ -68,16 +68,7 @@ export function printSchemaMembers(componentsInterface: ts.InterfaceDeclaration)
             });
         }
 
-        if (rawSchemaName != safeSchemaName) {
-            // 需要更新接口名
-            // newMember = ts.factory.updatePropertySignature(
-            //     member,
-            //     member.modifiers,
-            //     ts.factory.createStringLiteral(schemaName),
-            //     member.questionToken,
-            //     member.type
-            // );
-        }
+
         if (ts.isTypeLiteralNode(member.type)) {
             iface = ts.factory.createInterfaceDeclaration(
                 [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
@@ -94,23 +85,10 @@ export function printSchemaMembers(componentsInterface: ts.InterfaceDeclaration)
                 member.type,
             );
         }
-        // if (!newMember.type || !ts.isTypeLiteralNode(newMember.type)) continue;
-
-        // const iface = ts.factory.createInterfaceDeclaration(
-        //     /* modifiers */[
-        //         ts.factory.createModifier(ts.SyntaxKind.ExportKeyword),
-        //     ],
-        //     schemaName,
-        //     /* typeParameters */ undefined,
-        //     /* heritageClauses */ undefined,
-        //     /* members */ newMember.type.members
-        // );
-
-        interfaceCode += printNode(iface, virtualSourceFile) + "\n\n";
-
-
+        const rawSchemaNameComment = rawSchemaName != safeSchemaName ? `// 原始 schema 名称: "${rawSchemaName}"\n` : "";
+        interfaceCode += rawSchemaNameComment + printNode(iface, virtualSourceFile) + "\n\n";
     }
-    fs.writeFileSync("./temp/types/schemas.ts", interfaceCode);
-    // fs.writeFileSync('./temp/safeNameMap.json', JSON.stringify(safeNameMap, replacer));
+    await fs.mkdir(path.dirname(outputFile), { recursive: true });
+    await fs.writeFile(outputFile, interfaceCode, 'utf-8');
 }
 
