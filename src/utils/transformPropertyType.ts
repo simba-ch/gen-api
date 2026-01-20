@@ -1,39 +1,32 @@
 import ts from "typescript";
 import { safeNameMap } from "./toSafeInterfaceName.ts";
+import { parsePropertyName } from "./parsePropertyName.ts";
+import { toPropertyName } from "./toPropertyName.ts";
+import { getSchemaNameFromComponentsRef } from "./getSchemaNameFromComponentsRef.ts";
+import { toSafeEntityName } from "./toSafeEntityName.ts";
 
-function getSchemaNameFromComponentsRef(
-    type: ts.IndexedAccessTypeNode
-): string {
-    const indexType = type.indexType;
-
-    if (!ts.isLiteralTypeNode(indexType)) {
-        throw new Error("Index type is not a literal type");
-    }
-
-    const literal = indexType.literal;
-
-    if (!ts.isStringLiteral(literal)) {
-        throw new Error("Schema ref is not a string literal");
-    }
-
-    return literal.text;
-}
-
-
-
-function isComponentsSchemaRef(
+/**
+ * 检查类型节点是否为组件模式引用
+ * 
+ * 该函数用于判断给定的TypeScript类型节点是否指向OpenAPI组件中的模式定义。
+ * 它会递归检查类型节点是否以"components['schemas']"为基础。
+ * 
+ * @param type - 要检查的TypeScript类型节点
+ * @returns 如果类型是组件模式引用则返回true，否则返回false
+ */
+function isDerivedFromSchema(
     type: ts.TypeNode
 ): type is ts.IndexedAccessTypeNode {
-    if (ts.isIndexedAccessTypeNode(type) &&
-        ts.isTypeReferenceNode(type.objectType) &&
-        ts.isIdentifier(type.objectType.typeName) &&
-        type.objectType.typeName.text == "components" &&
-        ts.isLiteralTypeNode(type.indexType) &&
-        ts.isStringLiteral(type.indexType.literal) &&
-        type.indexType.literal.text == "schemas"
-    ) {
-        return false
-    }
+    // if (ts.isIndexedAccessTypeNode(type) &&
+    //     ts.isTypeReferenceNode(type.objectType) &&
+    //     ts.isIdentifier(type.objectType.typeName) &&
+    //     type.objectType.typeName.text == "components" &&
+    //     ts.isLiteralTypeNode(type.indexType) &&
+    //     ts.isStringLiteral(type.indexType.literal) &&
+    //     type.indexType.literal.text == "schemas"
+    // ) {
+    //     return false
+    // }
 
     // 递归查找基础是否为 components["schemas"]
     function hasComponentsSchemasBase(node: ts.TypeNode): boolean {
@@ -65,6 +58,40 @@ function isComponentsSchemaRef(
 
     return hasComponentsSchemasBase(type);
 }
+function isComponentsSchemaRef(
+    type: ts.TypeNode
+): type is ts.IndexedAccessTypeNode {
+
+    // 必须是 components["schemas"]["X"] 这种形态
+    if (!ts.isIndexedAccessTypeNode(type)) {
+        return false;
+    }
+
+    // indexType 必须是 string literal（X）
+    if (
+        !ts.isLiteralTypeNode(type.indexType) ||
+        !ts.isStringLiteral(type.indexType.literal)
+    ) {
+        return false;
+    }
+
+    const obj = type.objectType;
+
+    // objectType 必须是 components["schemas"]
+    if (
+        ts.isIndexedAccessTypeNode(obj) &&
+        ts.isTypeReferenceNode(obj.objectType) &&
+        ts.isIdentifier(obj.objectType.typeName) &&
+        obj.objectType.typeName.text === "components" &&
+        ts.isLiteralTypeNode(obj.indexType) &&
+        ts.isStringLiteral(obj.indexType.literal) &&
+        obj.indexType.literal.text === "schemas"
+    ) {
+        return true;
+    }
+
+    return false;
+}
 
 export function transformPropertyType(
     type: ts.TypeNode
@@ -77,16 +104,48 @@ export function transformPropertyType(
         return ts.factory.createTypeReferenceNode(safeSchemaName, undefined);
     }
 
-    // 可扩展：数组 / union / nullable
+    // { a: X; b: Y }
+    if (ts.isTypeLiteralNode(type)) {
+        return ts.factory.createTypeLiteralNode(
+            type.members.map((member) => {
+                if (!ts.isPropertySignature(member) || !member.type) {
+                    return member;
+                }
+                const safeMemberName = safeNameMap.get(parsePropertyName(member.name)) ?? member.name;
+                return ts.factory.updatePropertySignature(
+                    member,
+                    member.modifiers,
+                    toPropertyName(safeMemberName),
+                    member.questionToken,
+                    transformPropertyType(member.type),
+                );
+            }),
+        );
+    }
+    // T[]
     if (ts.isArrayTypeNode(type)) {
         return ts.factory.createArrayTypeNode(
             transformPropertyType(type.elementType)
         );
     }
-
+    // A | B
     if (ts.isUnionTypeNode(type)) {
         return ts.factory.createUnionTypeNode(
             type.types.map(transformPropertyType)
+        );
+    }
+
+    // Record<K, V> / Promise<T> 等
+    if (ts.isTypeReferenceNode(type)) {
+        const safeTypeName = toSafeEntityName(type.typeName);
+
+        return ts.factory.updateTypeReferenceNode(
+            type,
+            safeTypeName,
+            type.typeArguments ? ts.factory.createNodeArray(
+                type.typeArguments.map(transformPropertyType)
+            )
+                : undefined,
         );
     }
 

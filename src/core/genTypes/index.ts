@@ -1,5 +1,6 @@
 import ts from "typescript";
 import { printSchemaMembers } from "./printSchemaMembers.ts";
+import { extractInterfaceOperations } from "@core/parseOpenapi/index.ts";
 
 
 
@@ -13,4 +14,5 @@ export async function generateTypes(
   outputPath: string,
 ) {
   await printSchemaMembers(componentsInterface, outputPath);
+  await extractInterfaceOperations();
 }
