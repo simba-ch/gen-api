@@ -4,20 +4,9 @@ import { printNode } from "@utils/printNode.ts";
 import { transformPropertyType } from "@utils/transformPropertyType.ts";
 import fs from "fs/promises";
 import path from "path";
+import { parsePropertyName } from "@utils/parsePropertyName.ts";
 
-function parsePropertyName(name: ts.PropertyName): string {
 
-    if (ts.isComputedPropertyName(name)) {
-        throw new Error("Computed property name is not supported in schema");
-    }
-
-    if (ts.isIdentifier(name) || ts.isStringLiteral(name) || ts.isNumericLiteral(name)) {
-        return name.text;
-    }
-
-    // 理论上到不了这里
-    throw new Error("Unknown property name type");
-}
 
 
 export async function printSchemaMembers(componentsInterface: ts.InterfaceDeclaration, outputFile: string) {

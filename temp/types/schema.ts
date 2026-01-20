@@ -1,133 +1,155 @@
 export interface paths {
-    "/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** AppController_getHello */
-        get: operations["AppController_getHello"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  "/auth/login/check": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/todos": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    get?: never;
+    put?: never;
+    /** 检查登录名是否存在 */
+    post: {
+      parameters: {
+        query?: never;
+        header?: {
+          /** @example Bearer {{Token}} */
+          authorization?: string;
         };
-        /** 获取所有 Todo 列表 */
-        get: operations["TodoController_findAll"];
-        put?: never;
-        /** 创建新的 Todo */
-        post: operations["TodoController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/todos/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["LoginNameCheckRO"];
         };
-        /** 根据 ID 获取单个 Todo */
-        get: operations["TodoController_findOne"];
-        put?: never;
-        post?: never;
-        /** 删除 Todo */
-        delete: operations["TodoController_remove"];
-        options?: never;
-        head?: never;
-        /** 更新 Todo */
-        patch: operations["TodoController_update"];
-        trace?: never;
+      };
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            /**
+             * @example {
+             *       "code": "",
+             *       "success": false,
+             *       "data": false,
+             *       "message": "",
+             *       "tid": ""
+             *     }
+             */
+            "application/json": components["schemas"]["ServiceResultBoolean"];
+          };
+        };
+      };
     };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/login/sms/code": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** 未命名接口 */
+    post: {
+      parameters: {
+        query?: never;
+        header?: {
+          /** @example Bearer {{Token}} */
+          authorization?: string;
+        };
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          "multipart/form-data": {
+            /** @example 18706160555 */
+            mobile?: string;
+          };
+        };
+      };
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            "application/json": Record<string, never>;
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/login/sms/validate": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** 校验手机验证码 */
+    post: {
+      parameters: {
+        query?: never;
+        header?: {
+          /** @example Bearer {{Token}} */
+          authorization?: string;
+        };
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["MobileSmsCodeRO"];
+        };
+      };
+      responses: {
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            /**
+             * @example {
+             *       "code": "",
+             *       "success": false,
+             *       "data": {
+             *         "uuid": ""
+             *       },
+             *       "message": "",
+             *       "tid": ""
+             *     }
+             */
+            "application/json": components["schemas"]["ServiceResultValidateSmsCodeVO"];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
-export type webhooks = Record<string, never>;
-export interface components {
-    schemas: {
-        CreateTodoDto: {
-            /**
-             * @description Todo 标题
-             * @example 学习 NestJS
-             */
-            title: string;
-            /**
-             * @description Todo 描述
-             * @example 完成 todolist demo 开发
-             */
-            description?: string;
-        };
-        UpdateTodoDto: {
-            /**
-             * @description Todo 标题
-             * @example 学习 NestJS
-             */
-            title?: string;
-            /**
-             * @description Todo 描述
-             * @example 完成 todolist demo 开发
-             */
-            description?: string;
-            /**
-             * @description 是否完成
-             * @example true
-             */
-            completed?: boolean;
-        };
-        Todo: {
-            /**
-             * @description Todo ID
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description Todo 标题
-             * @example 学习 NestJS
-             */
-            title: string;
-            /**
-             * @description Todo 描述
-             * @example 完成 todolist demo 开发
-             */
-            description?: string;
-            /**
-             * @description 是否完成
-             * @example false
-             */
-            completed: boolean;
-            /**
-             * Format: date-time
-             * @description 创建时间
-             * @example 2024-01-15T10:00:00.000Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description 更新时间
-             * @example 2024-01-15T10:00:00.000Z
-             */
-            updatedAt: string;
-        };
-    };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
-}
-export type $defs = Record<string, never>;
+
 
 export interface operations {
     AppController_getHello: {

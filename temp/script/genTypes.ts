@@ -6,4 +6,4 @@ const fileName = pathToFileURL("./temp/origin/superHR.openapi.json").href;
 
 await parseOpenapi(fileName);
 
-componentsInterface && generateTypes(componentsInterface as ts.InterfaceDeclaration, './temp/types/superHR-types.ts');
+// componentsInterface && generateTypes(componentsInterface as ts.InterfaceDeclaration, './temp/types/superHR-types.ts');

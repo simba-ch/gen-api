@@ -5,8 +5,6 @@
     "moduleResolution": "nodenext",
     "baseUrl": "./",
     "paths": {
-      "@": ["src"],
-      "@/*": ["src/*"],
       "@script": ["script"],
       "@script/*": ["script/*"],
       "@temp/*": ["temp/*"],
@@ -14,7 +12,9 @@
       "@core": ["src/core"],
       "@core/*": ["src/core/*"],
       "@utils": ["src/utils"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@": ["src"],
+      "@/*": ["src/*"]
     },
     "esModuleInterop": true,
     "allowImportingTsExtensions": true,
