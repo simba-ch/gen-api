@@ -1,12 +1,6 @@
-import { printSchemaMembers } from "./printSchemaMembers.ts";
-import {
-  componentsInterface,
-  operationsInterface,
-  pathsInterface,
-} from "@core/parseOpenapi/index.ts";
+import { printTypes } from "./printSchemaMembers.ts";
+import { componentsInterface } from "../parseOpenapi/index.ts";
 import { writeFile } from "@utils/writeFile.ts";
-import { toInlinePathsInterface } from "@core/genTypes/toInlinePathsInterface.ts";
-import { createSourceFile, printNode } from "@utils/tsOperator.ts";
 
 type GenTypesOptions = {
   typesOutputPath: string;
@@ -19,17 +13,17 @@ type GenTypesOptions = {
  */
 export async function generateTypes({ typesOutputPath }: GenTypesOptions) {
   if (componentsInterface) {
-    const types = printSchemaMembers(componentsInterface);
+    const types = printTypes(componentsInterface);
     types && writeFile(typesOutputPath, types);
   }
-  if (pathsInterface && operationsInterface) {
-    const newPathsInterface = toInlinePathsInterface(
-      pathsInterface,
-      operationsInterface,
-    );
+  // if (pathsInterface && operationsInterface) {
+  //   const newPathsInterface = toInlinePathsInterface(
+  //     pathsInterface,
+  //     operationsInterface,
+  //   );
 
-    const sourceFile = createSourceFile("paths_interface.ts");
-    const pathsInterfaceCode = printNode(newPathsInterface, sourceFile);
-    writeFile("./temp/types/pathsInterface.ts", pathsInterfaceCode);
-  }
+  //   const sourceFile = createSourceFile("paths_interface.ts");
+  //   const pathsInterfaceCode = printNode(newPathsInterface, sourceFile);
+  //   writeFile("./temp/types/pathsInterface.ts", pathsInterfaceCode);
+  // }
 }

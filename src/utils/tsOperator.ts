@@ -98,8 +98,10 @@ export function isNeverLike(type: ts.TypeNode | undefined): boolean {
 
 // 创建打印器实例，用于打印TypeScript语法树节点
 const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
-let originSourceFile: ts.SourceFile;
-
+let originSourceFile: ts.SourceFile | undefined;
+export function setOriginSourceFile(sourceFile?: ts.SourceFile) {
+  originSourceFile = sourceFile;
+}
 /**
  * 打印TypeScript语法树节点
  *
@@ -258,7 +260,7 @@ export function isDerivedFromSchema(
 
 /**
  * 检查类型节点是否为 components["schemas"]["X"] 形式的组件模式引用
- * 
+ *
  * @param type - 要检查的类型节点
  * @returns 如果类型为 components["schemas"]["X"] 形式的组件模式引用则返回 true，否则返回 false
  */

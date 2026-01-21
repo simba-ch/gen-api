@@ -13,9 +13,7 @@ import ts from "typescript";
  * @param componentsInterface 包含 schemas 属性的 TypeScript 接口声明
  * @returns 生成的接口代码字符串，如果找不到 schemas 属性则返回 undefined
  */
-export function printSchemaMembers(
-  componentsInterface: ts.InterfaceDeclaration,
-) {
+export function printTypes(componentsInterface: ts.InterfaceDeclaration) {
   const schemasProp = componentsInterface.members.find(
     (m): m is ts.PropertySignature =>
       ts.isPropertySignature(m) &&
@@ -26,7 +24,7 @@ export function printSchemaMembers(
   if (!schemasProp?.type || !ts.isTypeLiteralNode(schemasProp.type)) {
     return;
   }
-  const virtualSourceFile = createSourceFile("printSchemaMembers.ts");
+  const virtualSourceFile = createSourceFile("hi-openapi-ts-printTypes.ts");
   // 注册安全名映射
   for (const member of schemasProp.type.members) {
     if (!ts.isPropertySignature(member) || !member.type) continue;
@@ -41,7 +39,7 @@ export function printSchemaMembers(
     const safeSchemaName = generateSafeInterfaceName(rawSchemaName);
 
     if (!safeSchemaName) continue;
-    let iface: ts.Statement;
+
     let newMembers: ts.TypeElement[] = [];
     if (member.type && ts.isTypeLiteralNode(member.type)) {
       newMembers = member.type.members.map((m) => {
@@ -56,7 +54,7 @@ export function printSchemaMembers(
         );
       });
     }
-
+    let iface: ts.Statement;
     if (ts.isTypeLiteralNode(member.type)) {
       iface = ts.factory.createInterfaceDeclaration(
         [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],

@@ -5,7 +5,7 @@ import {
   setOperationsInterface,
 } from "@core/parseOpenapi/index.ts";
 import ts from "typescript";
-import { generateOperationId } from "@core/genTypes/generateOperationId.ts";
+import { generateOperationId } from "@utils/generateOperationId.ts";
 import { isNeverLike, getPropertyNameStr, transformPropertyType } from "@utils/tsOperator.ts";
 
 /**

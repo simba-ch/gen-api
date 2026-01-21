@@ -1,7 +1,8 @@
-import openapiTS from "openapi-typescript";
+import openapiTS, { astToString } from "openapi-typescript";
 import type { OpenAPITSOptions } from "openapi-typescript";
 import type { OpenAPISource } from "@shared-types/index.ts";
 import ts from "typescript";
+import { createSourceFile, setOriginSourceFile } from "@utils/tsOperator.ts";
 let pathsInterface: ts.InterfaceDeclaration | undefined;
 let componentsInterface: ts.InterfaceDeclaration | undefined;
 let operationsInterface: ts.InterfaceDeclaration | undefined;
@@ -28,6 +29,12 @@ export async function parseOpenapi(
       }
     }
   });
+
+  const content = astToString(ast);
+  const sourceFile = createSourceFile("hi-openapi-ts.ts", content);
+
+  setOriginSourceFile(sourceFile);
+  return ast;
 }
 
 export { pathsInterface, componentsInterface, operationsInterface };
