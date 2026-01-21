@@ -1,5 +1,6 @@
 import ts from "typescript";
-import { getPropertyNameStr, isOperationsReference, transformPropertyType } from "@utils/tsOperator.ts";
+import { getPropertyNameStr, isOperationsReference } from "@utils/tsOperator.ts";
+import { operationsInterface, pathsInterface, setPathsInterface } from "@core/parseOpenapi/index.ts";
 
 /**
  * 从操作接口中收集所有操作的AST节点
@@ -10,9 +11,10 @@ import { getPropertyNameStr, isOperationsReference, transformPropertyType } from
  * @returns 包含操作名称到类型字面量节点映射的Map对象
  */
 function collectOperationsAST(
-  operationsInterface: ts.InterfaceDeclaration,
+  operationsInterface?: ts.InterfaceDeclaration,
 ): Map<string, ts.TypeLiteralNode> {
   const map = new Map<string, ts.TypeLiteralNode>();
+  if (operationsInterface === undefined) return map;
 
   for (const member of operationsInterface.members) {
     if (!ts.isPropertySignature(member)) continue;
@@ -26,7 +28,7 @@ function collectOperationsAST(
   }
 
   return map;
-  
+
 }
 
 
@@ -55,26 +57,27 @@ function transformPathsInterface(
 
       // 2️⃣ 已经是内联对象 → 跳过
       if (ts.isTypeLiteralNode(methodMember.type)) {
-        return ts.factory.updatePropertySignature(
-          methodMember,
-          methodMember.modifiers,
-          methodMember.name,
-          methodMember.questionToken,
-          transformPropertyType(methodMember.type),
-        );
+        return methodMember;
+        // return ts.factory.updatePropertySignature(
+        //   methodMember,
+        //   methodMember.modifiers,
+        //   methodMember.name,
+        //   methodMember.questionToken,
+        //   transformPropertyType(methodMember.type),
+        // );
       }
 
-      // 3️⃣ operations["xxx"] → 替换
+      // 3️⃣ operations["xxx"] → 替换为操作接口中的类型字面量节点
       const ref = methodMember.type && isOperationsReference(methodMember.type);
       if (ref) {
-        const opType = operationsMap.get(ref.name);
+        const opType = operationsMap.get(ref.name) ?? methodMember.type;
         if (opType) {
           return ts.factory.updatePropertySignature(
             methodMember,
             methodMember.modifiers,
             methodMember.name,
             methodMember.questionToken,
-            transformPropertyType(opType),
+            opType, // transformPropertyType(opType),
           );
         }
       }
@@ -106,10 +109,9 @@ function transformPathsInterface(
   );
 }
 
-export function toInlinePathsInterface(
-  pathsInterface: ts.InterfaceDeclaration,
-  operationsInterface: ts.InterfaceDeclaration,
-) {
+export async function toInlinePathsInterface() {
+  if (!pathsInterface) return;
   const operationMap = collectOperationsAST(operationsInterface);
-  return transformPathsInterface(pathsInterface, operationMap);
+  const newPathsInterface = transformPathsInterface(pathsInterface, operationMap);
+  setPathsInterface(newPathsInterface)
 }
