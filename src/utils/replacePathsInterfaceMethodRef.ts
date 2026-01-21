@@ -1,7 +1,7 @@
 import { HTTP_METHODS } from "@/const.ts";
 import { pathsInterface } from "@core/parseOpenapi/index.ts";
 import ts from "typescript";
-import { generateOperationId } from "../../utils/generateOperationId.ts";
+import { generateOperationId } from "./generateOperationId.ts";
 import { getPropertyNameStr, isNeverLike } from "@utils/tsOperator.ts";
 
 /**
