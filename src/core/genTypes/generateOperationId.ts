@@ -21,4 +21,3 @@ export function generateOperationId(path: string, method: string): string {
   // 拼接成最终格式
   return `${pascalCaseParts.join("")}Controller_${method}`;
 }
-const pathId = generateOperationId("/users/{id}/posts/{id}", "post");

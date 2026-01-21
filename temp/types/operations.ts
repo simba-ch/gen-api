@@ -1,3 +1,5 @@
+import * as schemas from "./superHR-types.ts";
+
 export interface operations {
     /** 检查登录名是否存在 */
     AuthLoginCheckController_post: {

@@ -22,16 +22,11 @@
   "license": "ISC",
   "packageManager": "pnpm@10.22.0",
   "devDependencies": {
-    "@types/node": "^25.0.8",
-    "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0",
-    "tsup": "^8.5.1"
+    "@types/node": "^25.0.8"
   },
   "dependencies": {
-    "@apidevtools/swagger-parser": "^12.1.0",
     "dotenv": "^17.2.3",
     "openapi-typescript": "^7.10.1",
-    "typescript": "^5.9.3",
-    "yaml": "^2.8.2"
+    "typescript": "^5.9.3"
   }
 }
