@@ -17,10 +17,7 @@ export async function generateTypes({ typesOutputPath }: GenTypesOptions) {
     types && writeFile(typesOutputPath, types);
   }
   // if (pathsInterface && operationsInterface) {
-  //   const newPathsInterface = toInlinePathsInterface(
-  //     pathsInterface,
-  //     operationsInterface,
-  //   );
+  //   toInlinePathsInterface();
 
   //   const sourceFile = createSourceFile("paths_interface.ts");
   //   const pathsInterfaceCode = printNode(newPathsInterface, sourceFile);

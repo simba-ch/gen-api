@@ -98,6 +98,8 @@ export function isNeverLike(type: ts.TypeNode | undefined): boolean {
 
 // 创建打印器实例，用于打印TypeScript语法树节点
 const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
+
+
 let originSourceFile: ts.SourceFile | undefined;
 export function setOriginSourceFile(sourceFile?: ts.SourceFile) {
   originSourceFile = sourceFile;

@@ -9,9 +9,10 @@ env.config();
 let url = process.env.URL!;
 url = process.env.HR_URL!;
 url = pathToFileURL("./temp/origin/superHR.openapi.json").href;
+
 const api = await openapiTS(url);
 
-writeNodesToFile(api, "./temp/types/superHR.openapi.ts");
+writeNodesToFile(api, "./src/gen/types/superHR.openapi.ts");
 
 // extractSchemasAsInterfaces(api, "src/api/schemas-hr.ts");
 
