@@ -2,22 +2,22 @@ import { ErrorStatus, OkStatus } from "./http_status.ts";
 
 export type Middleware =
   | {
-      onRequest: MiddlewareOnRequest;
-      onResponse?: MiddlewareOnResponse;
-      onError?: MiddlewareOnError;
-    }
+    onRequest: MiddlewareOnRequest;
+    onResponse?: MiddlewareOnResponse;
+    onError?: MiddlewareOnError;
+  }
   | {
-      onRequest?: MiddlewareOnRequest;
-      onResponse: MiddlewareOnResponse;
-      onError?: MiddlewareOnError;
-    }
+    onRequest?: MiddlewareOnRequest;
+    onResponse: MiddlewareOnResponse;
+    onError?: MiddlewareOnError;
+  }
   | {
-      onRequest?: MiddlewareOnRequest;
-      onResponse?: MiddlewareOnResponse;
-      onError: MiddlewareOnError;
-    };
+    onRequest?: MiddlewareOnRequest;
+    onResponse?: MiddlewareOnResponse;
+    onError: MiddlewareOnError;
+  };
 
-export interface MiddlewareCallbackParams {}
+export interface MiddlewareCallbackParams { }
 
 type MiddlewareOnRequest = (
   options: MiddlewareCallbackParams,
@@ -119,22 +119,22 @@ export type PathsWithMethod<
   [Pathname in keyof Paths]: Paths[Pathname] extends {
     [K in PathnameMethod]: any;
   }
-    ? Pathname
-    : never;
+  ? Pathname
+  : never;
 }[keyof Paths];
 
 export type MaybeOptionalInit<Params, Location extends keyof Params> =
   RequiredKeysOf<FetchOptions<FilterKeys<Params, Location>>> extends never
-    ? FetchOptions<FilterKeys<Params, Location>> | undefined
-    : FetchOptions<FilterKeys<Params, Location>>;
+  ? FetchOptions<FilterKeys<Params, Location>> | undefined
+  : FetchOptions<FilterKeys<Params, Location>>;
 
 export type FetchOptions<T> = RequestOptions<T> &
   Omit<RequestInit, "body" | "headers">;
 
 type InitParam<Init> =
   RequiredKeysOf<Init> extends never
-    ? [(Init & { [key: string]: unknown })?]
-    : [Init & { [key: string]: unknown }];
+  ? [(Init & { [key: string]: unknown })?]
+  : [Init & { [key: string]: unknown }];
 
 export type RequiredKeysOf<T> =
   RequiredKeysOfHelper<T> extends undefined ? never : RequiredKeysOfHelper<T>;
@@ -150,18 +150,18 @@ export type FetchResponse<
   Media extends MediaType,
 > =
   | {
-      data: ParseAsResponse<
-        SuccessResponse<ResponseObjectMap<T>, Media>,
-        Options
-      >;
-      error?: never;
-      response: Response;
-    }
+    data: ParseAsResponse<
+      SuccessResponse<ResponseObjectMap<T>, Media>,
+      Options
+    >;
+    error?: never;
+    response: Response;
+  }
   | {
-      data?: never;
-      error: ErrorResponse<ResponseObjectMap<T>, Media>;
-      response: Response;
-    };
+    data?: never;
+    error: ErrorResponse<ResponseObjectMap<T>, Media>;
+    response: Response;
+  };
 
 export type ResponseObjectMap<T> = T extends { responses: any }
   ? T["responses"]
@@ -199,14 +199,14 @@ export type GetResponseContent<
   ResponseCode extends keyof T = keyof T,
 > = ResponseCode extends keyof T
   ? {
-      [K in ResponseCode]: T[K]["content"] extends Record<string, any>
-        ? FilterKeys<T[K]["content"], Media> extends never
-          ? T[K]["content"]
-          : FilterKeys<T[K]["content"], Media>
-        : K extends keyof T
-          ? T[K]["content"]
-          : never;
-    }[ResponseCode]
+    [K in ResponseCode]: T[K]["content"] extends Record<string, any>
+    ? FilterKeys<T[K]["content"], Media> extends never
+    ? T[K]["content"]
+    : FilterKeys<T[K]["content"], Media>
+    : K extends keyof T
+    ? T[K]["content"]
+    : never;
+  }[ResponseCode]
   : never;
 
 export type FilterKeys<Obj, Matchers> = Obj[keyof Obj & Matchers];
@@ -241,14 +241,14 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
 export type HeadersOptions =
   | Required<RequestInit>["headers"]
   | Record<
-      string,
-      | string
-      | number
-      | boolean
-      | (string | number | boolean)[]
-      | null
-      | undefined
-    >;
+    string,
+    | string
+    | number
+    | boolean
+    | (string | number | boolean)[]
+    | null
+    | undefined
+  >;
 
 export type QuerySerializerOptions = {
   /** Set serialization for arrays. @see https://swagger.io/docs/specification/serialization/#query */
@@ -279,8 +279,8 @@ export type ParamsOption<T> = T extends {
   parameters: any;
 }
   ? RequiredKeysOf<T["parameters"]> extends never
-    ? { params?: T["parameters"] }
-    : { params: T["parameters"] }
+  ? { params?: T["parameters"] }
+  : { params: T["parameters"] }
   : DefaultParamsOption;
 
 export interface DefaultParamsOption {
@@ -293,18 +293,18 @@ export type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
 
 export type OperationRequestBodyContent<T> =
   FilterKeys<OperationRequestBodyMediaContent<T>, MediaType> extends never
-    ?
-        | FilterKeys<
-            NonNullable<OperationRequestBodyMediaContent<T>>,
-            MediaType
-          >
-        | undefined
-    : FilterKeys<OperationRequestBodyMediaContent<T>, MediaType>;
+  ?
+  | FilterKeys<
+    NonNullable<OperationRequestBodyMediaContent<T>>,
+    MediaType
+  >
+  | undefined
+  : FilterKeys<OperationRequestBodyMediaContent<T>, MediaType>;
 
 export type OperationRequestBodyMediaContent<T> =
   IsOperationRequestBodyOptional<T> extends true
-    ? ResponseContent<NonNullable<OperationRequestBody<T>>> | undefined
-    : ResponseContent<OperationRequestBody<T>>;
+  ? ResponseContent<NonNullable<OperationRequestBody<T>>> | undefined
+  : ResponseContent<OperationRequestBody<T>>;
 
 export type OperationRequestBody<T> = "requestBody" extends keyof T
   ? T["requestBody"]
@@ -327,7 +327,24 @@ export type QuerySerializer<T> = (
 
 export type RequestBodyOption<T> =
   OperationRequestBodyContent<T> extends never
-    ? { body?: never }
-    : IsOperationRequestBodyOptional<T> extends true
-      ? { body?: OperationRequestBodyContent<T> }
-      : { body: OperationRequestBodyContent<T> };
+  ? { body?: never }
+  : IsOperationRequestBodyOptional<T> extends true
+  ? { body?: OperationRequestBodyContent<T> }
+  : { body: OperationRequestBodyContent<T> };
+
+
+export interface ClientOptions extends Omit<RequestInit, "headers"> {
+  /** set the common root URL for all API requests */
+  baseUrl?: string;
+  /** custom fetch (defaults to globalThis.fetch) */
+  fetch?: (input: Request) => Promise<Response>;
+  /** custom Request (defaults to globalThis.Request) */
+  Request?: typeof Request;
+  /** global querySerializer */
+  querySerializer?: QuerySerializer<unknown> | QuerySerializerOptions;
+  /** global bodySerializer */
+  bodySerializer?: BodySerializer<unknown>;
+  headers?: HeadersOptions;
+  /** RequestInit extension object to pass as 2nd argument to fetch when supported (defaults to undefined) */
+  requestInitExt?: Record<string, unknown>;
+}
